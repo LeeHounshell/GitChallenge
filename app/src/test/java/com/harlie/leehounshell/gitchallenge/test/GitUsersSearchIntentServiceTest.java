@@ -12,6 +12,7 @@ import com.harlie.leehounshell.gitchallenge.model.GitUser_Model;
 import com.harlie.leehounshell.gitchallenge.model.Repository_Model;
 import com.harlie.leehounshell.gitchallenge.service.GitUsersSearchIntentService;
 import com.harlie.leehounshell.gitchallenge.util.FileUtil;
+import com.harlie.leehounshell.gitchallenge.util.GitUsersSearchResults;
 import com.harlie.leehounshell.gitchallenge.view.MainActivity;
 
 import junit.framework.Assert;
@@ -111,48 +112,28 @@ public class GitUsersSearchIntentServiceTest {
             String jsonInfo = FileUtil.convertStreamToString(in);
             System.out.println(TAG + "jsonInfo=" + jsonInfo);
             assertThat(jsonInfo, notNullValue());
+            GitUsersSearchResults results = new GitUsersSearchResults();
+            GitUser_Model model = new GitUser_Model();
 
-            try {
-                JSONArray jsonArray = new JSONArray(jsonInfo);
-                JSONObject jsonObj = null;
-                String userName = null;
-                String userProfile = null;
-                String avatarUrl = null;
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    jsonObj = jsonArray.getJSONObject(i);
-                    if (i == 0) {
-                        System.out.println("================================================================================");
-                        JSONObject owner = (JSONObject) jsonObj.get("owner");
-                        userName = String.valueOf(owner.get("login"));
-                        assertThat(userName, notNullValue());
-                        userProfile = String.valueOf(owner.get("html_url"));
-                        assertThat(userProfile, notNullValue());
-                        avatarUrl = String.valueOf(owner.get("avatar_url"));
-                        assertThat(avatarUrl, notNullValue());
+            // PARSE THE JSON!
+            results.parseGitHubData(model, jsonInfo);
 
-                        System.out.println("userName: " + userName);
-                        System.out.println("userProfile: " + userProfile);
-                        System.out.println("avatarUrl: " + avatarUrl);
-                    }
-                    System.out.println("");
-                    System.out.println("--------------------------------------------------------------------------------");
-                    String repoName = String.valueOf(jsonObj.get("name"));
-                    assertThat(repoName, notNullValue());
-                    String repoUrl = String.valueOf(jsonObj.get("html_url"));
-                    assertThat(repoUrl, notNullValue());
-                    String repoStars = String.valueOf(jsonObj.get("stargazers_count"));
-                    assertThat(repoStars, notNullValue());
+            System.out.println("================================================================================");
+            System.out.println("userName: " + model.getUserName());
+            System.out.println("userProfile: " + model.getUserProfileUrl());
+            System.out.println("avatarUrl: " + model.getUserAvatarUrl());
+            assertThat(model.getUserName(), notNullValue());
+            assertThat(model.getUserProfileUrl(), notNullValue());
+            assertThat(model.getUserAvatarUrl(), notNullValue());
 
-                    System.out.println("repo: " + repoName);
-                    System.out.println("url: " + repoUrl);
-                    System.out.println("stars: " + repoStars);
-                }
-                if (userName == null || userProfile == null || avatarUrl == null) {
-                    fail("Unable to parse: login, html_url or avatar_url");
-                }
-            } catch (JSONException e) {
-                Assert.fail("failed to parse JSON containing search result");
-                e.printStackTrace();
+            for (Repository_Model repositoryModel : model.getUserRepositoryList()) {
+                assertThat(repositoryModel.getRepoName(), notNullValue());
+                assertThat(repositoryModel.getRepoUrl(), notNullValue());
+                assertThat(repositoryModel.getRepoStars(), notNullValue());
+                System.out.println("--------------------------------------------------------------------------------");
+                System.out.println("repo: " + repositoryModel.getRepoName());
+                System.out.println("url: " + repositoryModel.getRepoUrl());
+                System.out.println("stars: " + repositoryModel.getRepoStars());
             }
         }
         catch (JsonParseException e) {
