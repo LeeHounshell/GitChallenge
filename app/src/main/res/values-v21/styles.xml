@@ -10,14 +10,25 @@
         <item name="android:textColorPrimary">@color/colorPrimaryText</item>
         <item name="android:textColorSecondary">@color/colorSecondaryText</item>
         <item name="android:windowBackground">@color/colorPrimaryLight</item>
+        <!-- enable window content transitions -->
+        <item name="android:windowContentTransitions">false</item>
+        <!-- enable overlap of transitions
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+         -->
+        <!-- enable overlap of transitions
+        <item name="android:windowSharedElementEnterTransition">@android:transition/fade</item>
+        <item name="android:windowSharedElementExitTransition">@android:transition/fade</item>
+         -->
         <!-- window settings -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="alertDialogTheme">@style/Theme.AppCompat.Dialog.Alert</item>
-    </style>
-
-    <style name="MyPrimaryTextViewStyle" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:textSize">@dimen/text_size</item>
-        <item name="android:layout_margin">@dimen/item_margin</item>
+        <!-- window animation
+        <item name="android:windowAnimationStyle">@style/MyAnimation.Activity</item>
+         -->
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowAllowReturnTransitionOverlap">false</item>
     </style>
 
     <style name="TargetButton" parent="MyAppTheme">
@@ -25,23 +36,7 @@
         <item name="android:adjustViewBounds">true</item>
         <item name="colorControlHighlight">@color/buttonColorPressed</item>
         <item name="colorButtonNormal">@color/buttonColor</item>
-    </style>
-
-    <style name="ToolTipLayoutCustomStyle">
-        <item name="ttlm_padding">25dip</item>
-        <item name="ttlm_strokeColor">@color/tooltip_text_color</item>
-        <item name="ttlm_backgroundColor">@color/secondary_text</item>
-        <item name="ttlm_strokeWeight">2dip</item>
-        <item name="ttlm_cornerRadius">8dip</item>
-        <item name="ttlm_overlayStyle">@style/ToolTipOverlayCustomStyle</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceInverse</item>
-        <item name="android:gravity">center</item>
-    </style>
-
-    <style name="ToolTipOverlayCustomStyle">
-        <item name="android:color">@color/notification_background</item>
-        <item name="ttlm_repeatCount">999</item>
-        <item name="ttlm_duration">400</item>
+        <item name="android:elevation">@dimen/button_elevation</item>
     </style>
 
 </resources>

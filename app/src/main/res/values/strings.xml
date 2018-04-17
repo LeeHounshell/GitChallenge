@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">GitChallenge</string>
+    <string name="app_name">Git Challenge</string>
+    <string name="start">Start</string>
+    <string name="git_user_one">Git User One</string>
+    <string name="git_user_two">Git User Two</string>
+    <string name="enter_git_user_name_one">enter 1st user name</string>
+    <string name="enter_git_user_name_two">enter 2nd user name</string>
+    <string name="invalid_user_name">git user name is empty!</string>
+    <string name="tooltip_enter_git_users">Enter the names of two Github users then press Start</string>
 </resources>

@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryLight">#00BFFF</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#191970</color>
+    <color name="buttonColor">#ff228b22</color>
+    <color name="buttonColorPressed">#ffadd8e6</color>
+    <color name="tooltip_text_color">#00008B</color>
+    <color name="secondary_text">#191970</color>
+    <color name="notification_background">#C3B091</color>
+
 </resources>

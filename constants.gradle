@@ -1,0 +1,10 @@
+project.ext {
+    submodules     = ['tooltip']
+    pomdesc        = 'Git Challenge'
+
+    compileSdk     = 27
+    targetSdk      = 27
+    minSdk         = 16
+
+    buildTools     = "27.0.3"
+}

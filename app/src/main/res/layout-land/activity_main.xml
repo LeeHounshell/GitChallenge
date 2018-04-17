@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.MainActivity">
+
+    <data>
+        <variable
+            name="baseActivity"
+            type="com.harlie.leehounshell.gitchallenge.view.BaseActivity"/>
+        <variable
+            name="gitUserOne"
+            type="com.harlie.leehounshell.gitchallenge.model.GitUser_Model"/>
+        <variable
+            name="gitUserTwo"
+            type="com.harlie.leehounshell.gitchallenge.model.GitUser_Model"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/item_margin">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/git_user_one_label"
+                        style="@style/MyPrimaryTextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/git_user_one"
+                        android:textStyle="bold"/>
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/git_user_one_edit_text"
+                        style="@style/MyPrimaryTextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{(view) -> gitUserOne.enterGitUser(view, baseActivity)}"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:focusableInTouchMode="true"
+                        android:hint="@string/enter_git_user_name_one"/>
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/git_user_two_label"
+                        style="@style/MyPrimaryTextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/git_user_two"
+                        android:textStyle="bold"/>
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/git_user_two_edit_text"
+                        style="@style/MyPrimaryTextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{(view) -> gitUserTwo.enterGitUser(view, baseActivity)}"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:focusableInTouchMode="true"
+                        android:hint="@string/enter_git_user_name_two"/>
+
+                </LinearLayout>
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/start_button"
+                    style="@style/TargetButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> baseActivity.searchGitUsers(gitUserOne, gitUserTwo)}"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:layout_margin="@dimen/item_margin"
+                    android:layout_gravity="bottom|center_horizontal"
+                    app:srcCompat="@drawable/start_button_selector"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/start"
+                    android:focusable="true"/>
+
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <include layout="@layout/progress_bar"/>
+
+    </FrameLayout>
+
+</layout>
