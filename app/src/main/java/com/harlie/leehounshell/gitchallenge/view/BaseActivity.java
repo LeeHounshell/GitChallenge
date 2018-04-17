@@ -10,7 +10,6 @@ import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
@@ -25,6 +24,9 @@ import com.harlie.leehounshell.gitchallenge.util.LogHelper;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import static com.harlie.leehounshell.gitchallenge.view.BrowseUsersRepositorysActivity.KEY_USER_ONE;
+import static com.harlie.leehounshell.gitchallenge.view.BrowseUsersRepositorysActivity.KEY_USER_TWO;
 
 
 @SuppressLint("Registered")
@@ -58,20 +60,6 @@ public class BaseActivity extends AppCompatActivity
         LogHelper.v(TAG, "onResume");
         super.onResume();
         mStopped = false;
-    }
-
-    public void searchGitUsers(GitUser_Model userOne, GitUser_Model userTwo) {
-        if (userOne != null && userOne.getUserName() != null && userOne.getUserName().length() > 0
-         && userTwo != null && userTwo.getUserName() != null && userTwo.getUserName().length() > 0) {
-            LogHelper.v(TAG, "searchGitUsers: userOne=" + userOne.getUserName() + ", userTwo=" + userTwo.getUserName());
-            getProgressCircle().setVisibility(View.VISIBLE);
-            // TODO: load github data for both users
-        }
-        else {
-            LogHelper.v(TAG, "searchGitUsers: INVALID user name(s)");
-            String invalidUserName = getString(R.string.invalid_user_name);
-            CustomToast.post(invalidUserName);
-        }
     }
 
     @Override
@@ -151,9 +139,17 @@ public class BaseActivity extends AppCompatActivity
         }
     }
 
-    void goToMainActivity() {
+    public void goToMainActivity() {
         LogHelper.v(TAG, "goToMainActivity");
         Intent browseIntent = new Intent(this, MainActivity.class);
+        startTheActivity(browseIntent);
+    }
+
+    public void goToBrowseUsersRepositorysActivity(GitUser_Model gitUserOne, GitUser_Model gitUserTwo) {
+        LogHelper.v(TAG, "goToBrowseUsersRepositorysActivity");
+        Intent browseIntent = new Intent(this, BrowseUsersRepositorysActivity.class);
+        browseIntent.putExtra(KEY_USER_ONE, gitUserOne);
+        browseIntent.putExtra(KEY_USER_TWO, gitUserTwo);
         startTheActivity(browseIntent);
     }
 

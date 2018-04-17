@@ -17,7 +17,8 @@
         android:theme="@style/MyAppTheme"
         tools:ignore="AllowBackup">
 
-        <activity android:name=".view.MainActivity"
+        <activity
+            android:name=".view.MainActivity"
             android:launchMode="singleInstance"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -26,6 +27,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:launchMode="singleTop"
+            android:name=".view.BrowseUsersRepositorysActivity">
+        </activity>
+
+        <service
+            android:name=".service.GitUsersSearchIntentService"
+            android:exported="false">
+        </service>
 
     </application>
 

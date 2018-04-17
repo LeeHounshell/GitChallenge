@@ -7,8 +7,8 @@
 
     <data>
         <variable
-            name="baseActivity"
-            type="com.harlie.leehounshell.gitchallenge.view.BaseActivity"/>
+            name="mainActivity"
+            type="com.harlie.leehounshell.gitchallenge.view.MainActivity"/>
         <variable
             name="gitUserOne"
             type="com.harlie.leehounshell.gitchallenge.model.GitUser_Model"/>
@@ -45,7 +45,7 @@
                     style="@style/MyPrimaryTextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{(view) -> gitUserOne.enterGitUser(view, baseActivity)}"
+                    android:onClick="@{(view) -> gitUserOne.enterGitUser(view, mainActivity)}"
                     android:ems="10"
                     android:inputType="text"
                     android:focusableInTouchMode="true"
@@ -64,7 +64,7 @@
                     style="@style/MyPrimaryTextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{(view) -> gitUserTwo.enterGitUser(view, baseActivity)}"
+                    android:onClick="@{(view) -> gitUserTwo.enterGitUser(view, mainActivity)}"
                     android:ems="10"
                     android:inputType="text"
                     android:focusableInTouchMode="true"
@@ -75,7 +75,7 @@
                     style="@style/TargetButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> baseActivity.searchGitUsers(gitUserOne, gitUserTwo)}"
+                    android:onClick="@{() -> mainActivity.searchGitUsers(gitUserOne, gitUserTwo)}"
                     android:minHeight="0dp"
                     android:minWidth="0dp"
                     android:layout_gravity="center_horizontal"

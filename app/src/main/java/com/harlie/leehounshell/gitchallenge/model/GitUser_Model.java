@@ -6,74 +6,67 @@ import android.support.v7.widget.AppCompatEditText;
 import android.view.View;
 
 import com.harlie.leehounshell.gitchallenge.util.LogHelper;
-import com.harlie.leehounshell.gitchallenge.view.BaseActivity;
+import com.harlie.leehounshell.gitchallenge.view.MainActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GitUser_Model implements Parcelable {
     private final static String TAG = "LEE: <" + GitUser_Model.class.getSimpleName() + ">";
 
-    private String userName;
-    private String userEmail;
-    private String userProfileUrl;
-    private String userAvatarUrl;
-    private List<Repository_Model> userRepositoryList;
+    private String mUserName;
+    private String mUserProfileUrl;
+    private String mUserAvatarUrl;
+    private List<Repository_Model> mUserRepositoryList;
 
     public GitUser_Model() {
+        this.mUserRepositoryList = new ArrayList<>();
     }
 
-    public GitUser_Model(String userName, String userEmail, String userProfileUrl, String userAvatarUrl, List<Repository_Model> userRepositoryList) {
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.userProfileUrl = userProfileUrl;
-        this.userAvatarUrl = userAvatarUrl;
-        this.userRepositoryList = userRepositoryList;
+    public GitUser_Model(String userName, String userProfileUrl, String userAvatarUrl, List<Repository_Model> userRepositoryList) {
+        this.mUserName = userName;
+        this.mUserProfileUrl = userProfileUrl;
+        this.mUserAvatarUrl = userAvatarUrl;
+        this.mUserRepositoryList = userRepositoryList;
+        this.mUserRepositoryList = new ArrayList<>();
     }
 
-    public void enterGitUser(View view, BaseActivity baseActivity) {
-        userName = ((AppCompatEditText) view).getText().toString().trim();
-        LogHelper.v(TAG, "enterGitUser: userName=" + userName);
-        baseActivity.hideSoftKeyboard();
+    public void enterGitUser(View view, MainActivity mainActivity) {
+        mUserName = ((AppCompatEditText) view).getText().toString().trim();
+        LogHelper.v(TAG, "enterGitUser: mUserName=" + mUserName);
+        mainActivity.hideSoftKeyboard();
     }
 
     public String getUserName() {
-        return userName;
+        return mUserName;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+        this.mUserName = userName;
     }
 
     public String getUserProfileUrl() {
-        return userProfileUrl;
+        return mUserProfileUrl;
     }
 
     public void setUserProfileUrl(String userProfileUrl) {
-        this.userProfileUrl = userProfileUrl;
+        this.mUserProfileUrl = userProfileUrl;
     }
 
     public String getUserAvatarUrl() {
-        return userAvatarUrl;
+        return mUserAvatarUrl;
     }
 
     public void setUserAvatarUrl(String userAvatarUrl) {
-        this.userAvatarUrl = userAvatarUrl;
+        this.mUserAvatarUrl = userAvatarUrl;
     }
 
     public List<Repository_Model> getUserRepositoryList() {
-        return userRepositoryList;
+        return mUserRepositoryList;
     }
 
     public void setUserRepositoryList(List<Repository_Model> userRepositoryList) {
-        this.userRepositoryList = userRepositoryList;
+        this.mUserRepositoryList = userRepositoryList;
     }
 
     @Override
@@ -83,19 +76,17 @@ public class GitUser_Model implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.userName);
-        dest.writeString(this.userEmail);
-        dest.writeString(this.userProfileUrl);
-        dest.writeString(this.userAvatarUrl);
-        dest.writeTypedList(this.userRepositoryList);
+        dest.writeString(this.mUserName);
+        dest.writeString(this.mUserProfileUrl);
+        dest.writeString(this.mUserAvatarUrl);
+        dest.writeTypedList(this.mUserRepositoryList);
     }
 
     protected GitUser_Model(Parcel in) {
-        this.userName = in.readString();
-        this.userEmail = in.readString();
-        this.userProfileUrl = in.readString();
-        this.userAvatarUrl = in.readString();
-        this.userRepositoryList = in.createTypedArrayList(Repository_Model.CREATOR);
+        this.mUserName = in.readString();
+        this.mUserProfileUrl = in.readString();
+        this.mUserAvatarUrl = in.readString();
+        this.mUserRepositoryList = in.createTypedArrayList(Repository_Model.CREATOR);
     }
 
     public static final Parcelable.Creator<GitUser_Model> CREATOR = new Parcelable.Creator<GitUser_Model>() {
@@ -113,11 +104,10 @@ public class GitUser_Model implements Parcelable {
     @Override
     public String toString() {
         return "GitUser_Model{" +
-                "userName='" + userName + '\'' +
-                ", userEmail='" + userEmail + '\'' +
-                ", userProfileUrl='" + userProfileUrl + '\'' +
-                ", userAvatarUrl='" + userAvatarUrl + '\'' +
-                ", userRepositoryList=" + userRepositoryList +
+                "mUserName='" + mUserName + '\'' +
+                ", mUserProfileUrl='" + mUserProfileUrl + '\'' +
+                ", mUserAvatarUrl='" + mUserAvatarUrl + '\'' +
+                ", mUserRepositoryList=" + mUserRepositoryList +
                 '}';
     }
 }

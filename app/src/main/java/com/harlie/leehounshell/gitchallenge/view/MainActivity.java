@@ -4,12 +4,18 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageButton;
+import android.view.View;
 
 import com.harlie.leehounshell.gitchallenge.R;
 import com.harlie.leehounshell.gitchallenge.databinding.ActivityMainBinding;
 import com.harlie.leehounshell.gitchallenge.model.GitUser_Model;
+import com.harlie.leehounshell.gitchallenge.util.CustomToast;
+import com.harlie.leehounshell.gitchallenge.util.GitUsersSearchResults;
 import com.harlie.leehounshell.gitchallenge.util.LogHelper;
 import com.harlie.leehounshell.gitchallenge.view_model.GitUserPair_ViewModel;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import it.sephiroth.android.library.tooltip.Tooltip;
 
@@ -35,7 +41,7 @@ public class MainActivity extends BaseActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mBinding.setGitUserOne(mGitUserOne);
         mBinding.setGitUserTwo(mGitUserTwo);
-        mBinding.setBaseActivity(this);
+        mBinding.setMainActivity(this);
         mBinding.executePendingBindings();
     }
 
@@ -44,6 +50,46 @@ public class MainActivity extends BaseActivity {
         LogHelper.v(TAG, "onResume");
         super.onResume();
         tooltip();
+    }
+
+    public void searchGitUsers(GitUser_Model userOne, GitUser_Model userTwo) {
+        if (userOne != null && userOne.getUserName() != null && userOne.getUserName().length() > 0
+                && userTwo != null && userTwo.getUserName() != null && userTwo.getUserName().length() > 0) {
+            LogHelper.v(TAG, "searchGitUsers: userOne=" + userOne.getUserName() + ", userTwo=" + userTwo.getUserName());
+            getProgressCircle().setVisibility(View.VISIBLE);
+            if (getProgressCircle() != null) {
+                getProgressCircle().setVisibility(View.VISIBLE);
+            }
+            mGitUserPair_ViewModel.searchForUsers(userOne, userTwo);
+        }
+        else {
+            LogHelper.v(TAG, "searchGitUsers: INVALID user name(s)");
+            String invalidUserName = getString(R.string.empty_user_name);
+            CustomToast.post(invalidUserName);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(GitUsersSearchResults.GitUsersSearchResultsEvent event) {
+        LogHelper.v(TAG, "onMessageEvent: event=" + event);
+        if (getProgressCircle() != null) {
+            getProgressCircle().setVisibility(View.GONE);
+        }
+        if (event.searchOneSuccess() && event.searchTwoSuccess()) {
+            goToBrowseUsersRepositorysActivity(
+                    event.getUserOne(),
+                    event.getUserTwo());
+        }
+        else {
+            if (! event.searchOneSuccess()) {
+                String invalidUserName = getString(R.string.invalid_user_name_one);
+                CustomToast.post(invalidUserName);
+            }
+            if (! event.searchTwoSuccess()) {
+                String invalidUserName = getString(R.string.invalid_user_name_two);
+                CustomToast.post(invalidUserName);
+            }
+        }
     }
 
     private void tooltip() {
@@ -56,10 +102,10 @@ public class MainActivity extends BaseActivity {
                         LogHelper.v(TAG, "tooltip: make");
                         sSeenTooltip_GitUsers = true;
                         String tip = getResources().getString(R.string.tooltip_enter_git_users);
-                        AppCompatImageButton startButton = findViewById(R.id.start_button);
+                        AppCompatImageButton anchor = findViewById(R.id.start_button);
                         Tooltip.TooltipView tooltipView = Tooltip.make(MainActivity.this,
                                 new Tooltip.Builder(1)
-                                        .anchor(startButton, Tooltip.Gravity.TOP)
+                                        .anchor(anchor, Tooltip.Gravity.CENTER)
                                         .closePolicy(new Tooltip.ClosePolicy()
                                                 .insidePolicy(true, false)
                                                 .outsidePolicy(true, false), TOOLTIP_DISPLAY_TIME)
@@ -70,7 +116,7 @@ public class MainActivity extends BaseActivity {
                                         .withStyleId(R.style.ToolTipLayoutCustomStyle)
                                         .floatingAnimation(Tooltip.AnimationBuilder.DEFAULT)
                                         .maxWidth(600)
-                                        .withArrow(true)
+                                        .withArrow(false)
                                         .withOverlay(true).build()
                         );
                         tooltipView.show();
@@ -79,7 +125,6 @@ public class MainActivity extends BaseActivity {
             }, 1000);
         }
     }
-
 
     @Override
     protected void onDestroy() {
