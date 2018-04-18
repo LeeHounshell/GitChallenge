@@ -34,7 +34,7 @@
         </activity>
 
         <service
-            android:name=".service.GitUsersSearchIntentService"
+            android:name=".service.GitHubUsersSearchIntentService"
             android:exported="false">
         </service>
 

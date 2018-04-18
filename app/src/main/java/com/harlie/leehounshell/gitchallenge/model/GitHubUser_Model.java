@@ -1,29 +1,32 @@
 package com.harlie.leehounshell.gitchallenge.model;
 
+import android.databinding.BaseObservable;
+import android.databinding.BindingAdapter;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
 import com.harlie.leehounshell.gitchallenge.util.LogHelper;
-import com.harlie.leehounshell.gitchallenge.view.MainActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GitUser_Model implements Parcelable {
-    private final static String TAG = "LEE: <" + GitUser_Model.class.getSimpleName() + ">";
+public class GitHubUser_Model extends BaseObservable implements Parcelable {
+    private final static String TAG = "LEE: <" + GitHubUser_Model.class.getSimpleName() + ">";
 
     private String mUserName;
     private String mUserProfileUrl;
     private String mUserAvatarUrl;
     private List<Repository_Model> mUserRepositoryList;
 
-    public GitUser_Model() {
+    public GitHubUser_Model() {
         this.mUserRepositoryList = new ArrayList<>();
     }
 
-    public GitUser_Model(String userName, String userProfileUrl, String userAvatarUrl, List<Repository_Model> userRepositoryList) {
+    public GitHubUser_Model(String userName, String userProfileUrl, String userAvatarUrl, List<Repository_Model> userRepositoryList) {
         this.mUserName = userName;
         this.mUserProfileUrl = userProfileUrl;
         this.mUserAvatarUrl = userAvatarUrl;
@@ -31,15 +34,11 @@ public class GitUser_Model implements Parcelable {
         this.mUserRepositoryList = new ArrayList<>();
     }
 
-    public void enterGitUser(View view, MainActivity mainActivity) {
-        mUserName = ((AppCompatEditText) view).getText().toString().trim();
+    public void enterGitUser(View view) {
+        mUserName = ((AppCompatTextView) view).getText().toString().trim();
         LogHelper.v(TAG, "enterGitUser: mUserName=" + mUserName);
-        if (mUserName.length() == 0) {
-            mainActivity.showSoftKeyboard();
-        }
-        else {
-            mainActivity.hideSoftKeyboard();
-        }
+        GitHubUserNameRequestChangeEvent event = new GitHubUserNameRequestChangeEvent(mUserName, hashCode());
+        event.post();
     }
 
     public String getUserName() {
@@ -87,32 +86,64 @@ public class GitUser_Model implements Parcelable {
         dest.writeTypedList(this.mUserRepositoryList);
     }
 
-    protected GitUser_Model(Parcel in) {
+    protected GitHubUser_Model(Parcel in) {
         this.mUserName = in.readString();
         this.mUserProfileUrl = in.readString();
         this.mUserAvatarUrl = in.readString();
         this.mUserRepositoryList = in.createTypedArrayList(Repository_Model.CREATOR);
     }
 
-    public static final Parcelable.Creator<GitUser_Model> CREATOR = new Parcelable.Creator<GitUser_Model>() {
+    public static final Parcelable.Creator<GitHubUser_Model> CREATOR = new Parcelable.Creator<GitHubUser_Model>() {
         @Override
-        public GitUser_Model createFromParcel(Parcel source) {
-            return new GitUser_Model(source);
+        public GitHubUser_Model createFromParcel(Parcel source) {
+            return new GitHubUser_Model(source);
         }
 
         @Override
-        public GitUser_Model[] newArray(int size) {
-            return new GitUser_Model[size];
+        public GitHubUser_Model[] newArray(int size) {
+            return new GitHubUser_Model[size];
         }
     };
 
     @Override
     public String toString() {
-        return "GitUser_Model{" +
+        return "GitHubUser_Model{" +
                 "mUserName='" + mUserName + '\'' +
                 ", mUserProfileUrl='" + mUserProfileUrl + '\'' +
                 ", mUserAvatarUrl='" + mUserAvatarUrl + '\'' +
                 ", mUserRepositoryList=" + mUserRepositoryList +
                 '}';
+    }
+
+    public static class GitHubUserNameRequestChangeEvent {
+        private String textMessage;
+        private int callbackId;
+
+        GitHubUserNameRequestChangeEvent(String textMessage, int callbackId) {
+            this.textMessage = textMessage;
+            this.callbackId = callbackId;
+        }
+
+        public String getTextMessage() {
+            return textMessage;
+        }
+
+        public int getCallbackId() {
+            return callbackId;
+        }
+
+        public void post() {
+            LogHelper.v(TAG, "post: textMessage=" + textMessage);
+            GitHubUserNameRequestChangeEvent gitHubUserNameRequestChangeEvent = new GitHubUserNameRequestChangeEvent(textMessage, callbackId);
+            EventBus.getDefault().post(gitHubUserNameRequestChangeEvent);
+        }
+
+        @Override
+        public String toString() {
+            return "GitHubUserNameRequestChangeEvent{" +
+                    "textMessage='" + textMessage + '\'' +
+                    "callbackId='" + callbackId + '\'' +
+                    '}';
+        }
     }
 }

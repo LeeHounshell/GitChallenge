@@ -1,7 +1,6 @@
 package com.harlie.leehounshell.gitchallenge.view;
 
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 // FIXME: i want to do data binding here but can't get it working..
-// FIXME: so instead i pass the GitUser_Model via the Green Robot Event Bus
+// FIXME: so instead i pass the GitHubUser_Model via the Green Robot Event Bus
 
 public class UserOneTabFragment extends UserTabFragment {
     private final static String TAG = "LEE: <" + UserOneTabFragment.class.getSimpleName() + ">";

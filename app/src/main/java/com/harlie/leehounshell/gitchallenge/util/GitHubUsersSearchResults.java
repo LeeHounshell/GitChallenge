@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.harlie.leehounshell.gitchallenge.GitChallengeApplication;
-import com.harlie.leehounshell.gitchallenge.model.GitUser_Model;
+import com.harlie.leehounshell.gitchallenge.model.GitHubUser_Model;
 import com.harlie.leehounshell.gitchallenge.model.Repository_Model;
-import com.harlie.leehounshell.gitchallenge.service.GitUsersSearchIntentService;
+import com.harlie.leehounshell.gitchallenge.service.GitHubUsersSearchIntentService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
@@ -18,31 +18,31 @@ import org.json.JSONObject;
 import java.util.Collections;
 import java.util.Comparator;
 
-import static com.harlie.leehounshell.gitchallenge.service.GitUsersSearchIntentService.STATUS_ERROR;
-import static com.harlie.leehounshell.gitchallenge.service.GitUsersSearchIntentService.STATUS_GIT_USER_RESULTS;
+import static com.harlie.leehounshell.gitchallenge.service.GitHubUsersSearchIntentService.STATUS_ERROR;
+import static com.harlie.leehounshell.gitchallenge.service.GitHubUsersSearchIntentService.STATUS_GITHUB_USER_RESULTS;
 
-public class GitUsersSearchResults implements MyResultReceiver.Receiver {
-    private final static String TAG = "LEE: <" + GitUsersSearchResults.class.getSimpleName() + ">";
+public class GitHubUsersSearchResults implements MyResultReceiver.Receiver {
+    private final static String TAG = "LEE: <" + GitHubUsersSearchResults.class.getSimpleName() + ">";
 
-    public static class GitUsersSearchResultsEvent {
-        private final static String TAG = "LEE: <" + GitUsersSearchResultsEvent.class.getSimpleName() + ">";
+    public static class GitHubUsersSearchResultsEvent {
+        private final static String TAG = "LEE: <" + GitHubUsersSearchResultsEvent.class.getSimpleName() + ">";
 
         @SuppressWarnings("CanBeFinal")
-        private GitUser_Model userOne;
-        private GitUser_Model userTwo;
+        private GitHubUser_Model userOne;
+        private GitHubUser_Model userTwo;
 
-        GitUsersSearchResultsEvent(GitUser_Model userOne, GitUser_Model userTwo) {
-            LogHelper.v(TAG, "GitUsersSearchResultsEvent");
+        GitHubUsersSearchResultsEvent(GitHubUser_Model userOne, GitHubUser_Model userTwo) {
+            LogHelper.v(TAG, "GitHubUsersSearchResultsEvent");
             this.userOne = userOne;
             this.userTwo = userTwo;
         }
 
-        public GitUser_Model getUserOne() {
+        public GitHubUser_Model getUserOne() {
             LogHelper.v(TAG, "getUserOne");
             return userOne;
         }
 
-        public GitUser_Model getUserTwo() {
+        public GitHubUser_Model getUserTwo() {
             LogHelper.v(TAG, "getUserTwo");
             return userTwo;
         }
@@ -67,12 +67,12 @@ public class GitUsersSearchResults implements MyResultReceiver.Receiver {
     public void onReceiveResult(int resultCode, Bundle resultData) {
         LogHelper.v(TAG, "onReceiveResult: resultCode=" + resultCode);
         switch (resultCode) {
-            case STATUS_GIT_USER_RESULTS: {
-                LogHelper.v(TAG, "onReceiveResult: STATUS_GIT_USER_RESULTS");
-                GitUser_Model userOne = resultData.getParcelable(GitUsersSearchIntentService.GIT_USER_ONE);
-                GitUser_Model userTwo = resultData.getParcelable(GitUsersSearchIntentService.GIT_USER_TWO);
-                String resultsOne = resultData.getString(GitUsersSearchIntentService.GIT_USER_SEARCH_RESULTS_ONE);
-                String resultsTwo = resultData.getString(GitUsersSearchIntentService.GIT_USER_SEARCH_RESULTS_TWO);
+            case STATUS_GITHUB_USER_RESULTS: {
+                LogHelper.v(TAG, "onReceiveResult: STATUS_GITHUB_USER_RESULTS");
+                GitHubUser_Model userOne = resultData.getParcelable(GitHubUsersSearchIntentService.GITHUB_USER_ONE);
+                GitHubUser_Model userTwo = resultData.getParcelable(GitHubUsersSearchIntentService.GITHUB_USER_TWO);
+                String resultsOne = resultData.getString(GitHubUsersSearchIntentService.GITHUB_USER_SEARCH_RESULTS_ONE);
+                String resultsTwo = resultData.getString(GitHubUsersSearchIntentService.GITHUB_USER_SEARCH_RESULTS_TWO);
 
                 parseGitHubData(userOne, resultsOne);
                 parseGitHubData(userTwo, resultsTwo);
@@ -91,8 +91,8 @@ public class GitUsersSearchResults implements MyResultReceiver.Receiver {
         }
     }
 
-    // parse the results into the GitUser_Model
-    public void parseGitHubData(GitUser_Model user, String results) {
+    // parse the results into the GitHubUser_Model
+    public void parseGitHubData(GitHubUser_Model user, String results) {
         LogHelper.v(TAG, "parseGitHubData");
         try {
             JSONArray jsonArray = new JSONArray(results);
@@ -133,7 +133,7 @@ public class GitUsersSearchResults implements MyResultReceiver.Receiver {
         }
     }
 
-    private void sortByNumberOfStars(GitUser_Model user) {
+    private void sortByNumberOfStars(GitHubUser_Model user) {
         LogHelper.v(TAG, "sortByNumberOfStars");
         // sort the repository list by number of stars
         Collections.sort(user.getUserRepositoryList(), new Comparator<Repository_Model>() {
@@ -145,9 +145,9 @@ public class GitUsersSearchResults implements MyResultReceiver.Receiver {
         });
     }
 
-    private static void post(GitUser_Model userOne, GitUser_Model userTwo) {
+    private static void post(GitHubUser_Model userOne, GitHubUser_Model userTwo) {
         LogHelper.v(TAG, "post");
-        GitUsersSearchResultsEvent usersSearchResultsEvent = new GitUsersSearchResultsEvent(userOne, userTwo);
+        GitHubUsersSearchResultsEvent usersSearchResultsEvent = new GitHubUsersSearchResultsEvent(userOne, userTwo);
         EventBus.getDefault().post(usersSearchResultsEvent);
     }
 }

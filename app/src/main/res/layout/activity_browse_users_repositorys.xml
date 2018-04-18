@@ -10,10 +10,10 @@
             type="com.harlie.leehounshell.gitchallenge.util.TheWinner"/>
         <variable
             name="gitUserOne"
-            type="com.harlie.leehounshell.gitchallenge.model.GitUser_Model"/>
+            type="com.harlie.leehounshell.gitchallenge.model.GitHubUser_Model"/>
         <variable
             name="gitUserTwo"
-            type="com.harlie.leehounshell.gitchallenge.model.GitUser_Model"/>
+            type="com.harlie.leehounshell.gitchallenge.model.GitHubUser_Model"/>
     </data>
 
     <LinearLayout

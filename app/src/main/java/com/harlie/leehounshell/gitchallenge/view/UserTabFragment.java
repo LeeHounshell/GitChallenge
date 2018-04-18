@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.harlie.leehounshell.gitchallenge.GitChallengeApplication;
 import com.harlie.leehounshell.gitchallenge.R;
-import com.harlie.leehounshell.gitchallenge.model.GitUser_Model;
+import com.harlie.leehounshell.gitchallenge.model.GitHubUser_Model;
 import com.harlie.leehounshell.gitchallenge.util.CustomToast;
 import com.harlie.leehounshell.gitchallenge.util.LogHelper;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -25,7 +25,7 @@ public class UserTabFragment extends Fragment {
     private final static String TAG = "LEE: <" + UserTabFragment.class.getSimpleName() + ">";
 
     protected View mView;
-    protected GitUser_Model mGitUser;
+    protected GitHubUser_Model mGitUser;
     protected AppCompatTextView mUserNameLabel;
     protected AppCompatTextView mUserName;
     protected AppCompatTextView mProfileUrlLabel;
@@ -127,11 +127,11 @@ public class UserTabFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public GitUser_Model getGitUser() {
+    public GitHubUser_Model getGitUser() {
         return mGitUser;
     }
 
-    public void setGitUser(GitUser_Model gitUser) {
+    public void setGitUser(GitHubUser_Model gitUser) {
         this.mGitUser = gitUser;
     }
 

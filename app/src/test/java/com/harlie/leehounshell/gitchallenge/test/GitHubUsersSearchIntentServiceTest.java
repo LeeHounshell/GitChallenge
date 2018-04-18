@@ -6,11 +6,11 @@ import android.os.ResultReceiver;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.gson.JsonParseException;
-import com.harlie.leehounshell.gitchallenge.model.GitUser_Model;
+import com.harlie.leehounshell.gitchallenge.model.GitHubUser_Model;
 import com.harlie.leehounshell.gitchallenge.model.Repository_Model;
-import com.harlie.leehounshell.gitchallenge.service.GitUsersSearchIntentService;
+import com.harlie.leehounshell.gitchallenge.service.GitHubUsersSearchIntentService;
 import com.harlie.leehounshell.gitchallenge.util.FileUtil;
-import com.harlie.leehounshell.gitchallenge.util.GitUsersSearchResults;
+import com.harlie.leehounshell.gitchallenge.util.GitHubUsersSearchResults;
 import com.harlie.leehounshell.gitchallenge.view.MainActivity;
 
 import junit.framework.Assert;
@@ -29,29 +29,29 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.harlie.leehounshell.gitchallenge.service.GitUsersSearchIntentService.ACTION_FIND_GIT_USERS;
-import static com.harlie.leehounshell.gitchallenge.service.GitUsersSearchIntentService.GIT_USER_ONE;
-import static com.harlie.leehounshell.gitchallenge.service.GitUsersSearchIntentService.GIT_USER_TWO;
-import static com.harlie.leehounshell.gitchallenge.service.GitUsersSearchIntentService.RECEIVER;
+import static com.harlie.leehounshell.gitchallenge.service.GitHubUsersSearchIntentService.ACTION_FIND_GITHUB_USERS;
+import static com.harlie.leehounshell.gitchallenge.service.GitHubUsersSearchIntentService.GITHUB_USER_ONE;
+import static com.harlie.leehounshell.gitchallenge.service.GitHubUsersSearchIntentService.GITHUB_USER_TWO;
+import static com.harlie.leehounshell.gitchallenge.service.GitHubUsersSearchIntentService.RECEIVER;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 @Config(sdk = 25) //clean up Robolectric message: “WARNING: unknown service autofill”
 @RunWith(RobolectricTestRunner.class)
-public class GitUsersSearchIntentServiceTest {
-    private final static String TAG = "LEE: <" + GitUsersSearchIntentServiceTest.class.getSimpleName() + ">";
+public class GitHubUsersSearchIntentServiceTest {
+    private final static String TAG = "LEE: <" + GitHubUsersSearchIntentServiceTest.class.getSimpleName() + ">";
 
-    private ServiceController<GitUsersSearchIntentService> controller;
-    private GitUser_Model gitUserModelOne = null;
-    private GitUser_Model gitUserModelTwo = null;
+    private ServiceController<GitHubUsersSearchIntentService> controller;
+    private GitHubUser_Model gitUserModelOne = null;
+    private GitHubUser_Model gitUserModelTwo = null;
     private ResultReceiver resultReceiver = null;
 
     @Before
     public void setUp() {
-        controller = Robolectric.buildService(GitUsersSearchIntentService.class);
-        GitUsersSearchIntentService service = controller.bind().create().get();
+        controller = Robolectric.buildService(GitHubUsersSearchIntentService.class);
+        GitHubUsersSearchIntentService service = controller.bind().create().get();
 
-        gitUserModelOne = new GitUser_Model();
+        gitUserModelOne = new GitHubUser_Model();
         gitUserModelOne.setUserName("leehounshell");
         gitUserModelOne.setUserAvatarUrl("https://avatars3.githubusercontent.com/u/1031573?v=4");
         gitUserModelOne.setUserProfileUrl("https://github.com/LeeHounshell");
@@ -68,7 +68,7 @@ public class GitUsersSearchIntentServiceTest {
         repoListOne.add(repository5);
         gitUserModelOne.setUserRepositoryList(repoListOne);
 
-        gitUserModelTwo = new GitUser_Model();
+        gitUserModelTwo = new GitHubUser_Model();
         gitUserModelTwo.setUserName("udacity");
         gitUserModelTwo.setUserAvatarUrl("https://avatars2.githubusercontent.com/u/1916665?v=4");
         gitUserModelTwo.setUserProfileUrl("https://github.com/udacity");
@@ -91,10 +91,10 @@ public class GitUsersSearchIntentServiceTest {
     public void testWithIntent() {
         AppCompatActivity activity = Robolectric.setupActivity(MainActivity.class);
         Handler handler = new Handler();
-        Intent intent = new Intent(RuntimeEnvironment.application, GitUsersSearchIntentService.class);
-        intent.setAction(ACTION_FIND_GIT_USERS);
-        intent.putExtra(GIT_USER_ONE, gitUserModelOne);
-        intent.putExtra(GIT_USER_TWO, gitUserModelTwo);
+        Intent intent = new Intent(RuntimeEnvironment.application, GitHubUsersSearchIntentService.class);
+        intent.setAction(ACTION_FIND_GITHUB_USERS);
+        intent.putExtra(GITHUB_USER_ONE, gitUserModelOne);
+        intent.putExtra(GITHUB_USER_TWO, gitUserModelTwo);
         intent.putExtra(RECEIVER, new ResultReceiver(handler));
 
         controller.withIntent(intent).startCommand(0, 0);
@@ -105,8 +105,8 @@ public class GitUsersSearchIntentServiceTest {
             String jsonInfo = FileUtil.convertStreamToString(in);
             System.out.println(TAG + "jsonInfo=" + jsonInfo);
             assertThat(jsonInfo, notNullValue());
-            GitUsersSearchResults results = new GitUsersSearchResults();
-            GitUser_Model model = new GitUser_Model();
+            GitHubUsersSearchResults results = new GitHubUsersSearchResults();
+            GitHubUser_Model model = new GitHubUser_Model();
 
             // PARSE THE JSON!
             results.parseGitHubData(model, jsonInfo);
@@ -140,11 +140,11 @@ public class GitUsersSearchIntentServiceTest {
     public void testOnHandleIntent() {
         AppCompatActivity activity = Robolectric.setupActivity(MainActivity.class);
         Handler handler = new Handler();
-        MyTestIntentService intentService = new MyTestIntentService();
-        Intent intent = new Intent(RuntimeEnvironment.application, GitUsersSearchIntentService.class);
-        intent.setAction(ACTION_FIND_GIT_USERS);
-        intent.putExtra(GIT_USER_ONE, gitUserModelOne);
-        intent.putExtra(GIT_USER_TWO, gitUserModelTwo);
+        MyTestIntentServiceHub intentService = new MyTestIntentServiceHub();
+        Intent intent = new Intent(RuntimeEnvironment.application, GitHubUsersSearchIntentService.class);
+        intent.setAction(ACTION_FIND_GITHUB_USERS);
+        intent.putExtra(GITHUB_USER_ONE, gitUserModelOne);
+        intent.putExtra(GITHUB_USER_TWO, gitUserModelTwo);
         intent.putExtra(RECEIVER, new ResultReceiver(handler));
         controller.withIntent(intent).startCommand(0, 0);
         // now we can call onHandleIntent in the Service
@@ -156,7 +156,7 @@ public class GitUsersSearchIntentServiceTest {
         controller.destroy();
     }
 
-    public static class MyTestIntentService extends GitUsersSearchIntentService {
+    public static class MyTestIntentServiceHub extends GitHubUsersSearchIntentService {
 
         @Override
         protected void onHandleIntent(Intent intent) {

@@ -10,11 +10,11 @@
             name="mainActivity"
             type="com.harlie.leehounshell.gitchallenge.view.MainActivity"/>
         <variable
-            name="gitUserOne"
-            type="com.harlie.leehounshell.gitchallenge.model.GitUser_Model"/>
+            name="gitHubUserOne"
+            type="com.harlie.leehounshell.gitchallenge.model.GitHubUser_Model"/>
         <variable
-            name="gitUserTwo"
-            type="com.harlie.leehounshell.gitchallenge.model.GitUser_Model"/>
+            name="gitHubUserTwo"
+            type="com.harlie.leehounshell.gitchallenge.model.GitHubUser_Model"/>
     </data>
 
     <FrameLayout
@@ -37,45 +37,41 @@
                     style="@style/MyPrimaryTextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/git_user_one"
+                    android:text="@string/github_user_one"
                     android:textStyle="bold"/>
 
-                <android.support.v7.widget.AppCompatEditText
+                <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/git_user_one_edit_text"
                     style="@style/MyPrimaryTextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{(view) -> gitUserOne.enterGitUser(view, mainActivity)}"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:focusableInTouchMode="true"
-                    android:hint="@string/enter_git_user_name_one"/>
+                    android:text="@{gitHubUserOne.getUserName()}"
+                    android:onClick="@{(view) -> gitHubUserOne.enterGitUser(view)}"
+                    android:hint="@string/enter_github_user_name_one"/>
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/git_user_two_label"
                     style="@style/MyPrimaryTextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/git_user_two"
+                    android:text="@string/github_user_two"
                     android:textStyle="bold"/>
 
-                <android.support.v7.widget.AppCompatEditText
+                <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/git_user_two_edit_text"
                     style="@style/MyPrimaryTextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{(view) -> gitUserTwo.enterGitUser(view, mainActivity)}"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:focusableInTouchMode="true"
-                    android:hint="@string/enter_git_user_name_two"/>
+                    android:text="@{gitHubUserTwo.getUserName()}"
+                    android:onClick="@{(view) -> gitHubUserTwo.enterGitUser(view)}"
+                    android:hint="@string/enter_github_user_name_two"/>
 
                 <android.support.v7.widget.AppCompatImageButton
                     android:id="@+id/start_button"
                     style="@style/TargetButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> mainActivity.searchGitUsers(gitUserOne, gitUserTwo)}"
+                    android:onClick="@{() -> mainActivity.searchGitUsers(gitHubUserOne, gitHubUserTwo)}"
                     android:minHeight="0dp"
                     android:minWidth="0dp"
                     android:layout_gravity="center_horizontal"

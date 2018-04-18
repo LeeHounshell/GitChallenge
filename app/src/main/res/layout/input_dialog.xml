@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/the_input_user_name"
+        style="@style/MyPrimaryTextViewStyle"
+        android:textColor="@color/white"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:ems="10"
+        android:inputType="text"
+        android:focusableInTouchMode="true"
+        android:hint="@string/enter_github_user_name"/>
+
+</LinearLayout>

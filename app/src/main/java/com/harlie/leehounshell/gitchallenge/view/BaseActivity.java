@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.harlie.leehounshell.gitchallenge.GitChallengeApplication;
 import com.harlie.leehounshell.gitchallenge.R;
-import com.harlie.leehounshell.gitchallenge.model.GitUser_Model;
+import com.harlie.leehounshell.gitchallenge.model.GitHubUser_Model;
 import com.harlie.leehounshell.gitchallenge.util.CustomToast;
 import com.harlie.leehounshell.gitchallenge.util.LogHelper;
 
@@ -152,7 +152,7 @@ public class BaseActivity extends AppCompatActivity
         startTheActivity(browseIntent);
     }
 
-    public void goToBrowseUsersRepositorysActivity(GitUser_Model gitUserOne, GitUser_Model gitUserTwo) {
+    public void goToBrowseUsersRepositorysActivity(GitHubUser_Model gitUserOne, GitHubUser_Model gitUserTwo) {
         LogHelper.v(TAG, "goToBrowseUsersRepositorysActivity");
         Intent browseIntent = new Intent(this, BrowseUsersRepositorysActivity.class);
         browseIntent.putExtra(KEY_USER_ONE, gitUserOne);
