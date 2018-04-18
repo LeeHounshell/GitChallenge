@@ -16,55 +16,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/item_margin"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/user_name"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_marginLeft="@dimen/item_margin"
-                android:layout_marginStart="@dimen/item_margin"/>
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/tab2_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_marginLeft="@dimen/item_margin"
-                android:layout_marginStart="@dimen/item_margin"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/profile"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_marginLeft="@dimen/item_margin"
-                android:layout_marginStart="@dimen/item_margin"/>
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/tab2_user_profile_url"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_marginLeft="@dimen/item_margin"
-                android:layout_marginStart="@dimen/item_margin"/>
-
-        </LinearLayout>
+        android:orientation="horizontal">
 
         <com.makeramen.roundedimageview.RoundedImageView
             style="@style/AlbumImageStyle"
@@ -75,8 +27,65 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:scaleType="fitCenter"
+            android:layout_marginLeft="@dimen/item_margin"
+            android:layout_marginStart="@dimen/item_margin"
             app:riv_corner_radius="@dimen/cardview_corner_radius"
             app:riv_border_width="2dip"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/item_margin"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_name"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_marginLeft="@dimen/item_margin"
+                    android:layout_marginStart="@dimen/item_margin"/>
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tab2_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_marginLeft="@dimen/item_margin"
+                    android:layout_marginStart="@dimen/item_margin"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_marginLeft="@dimen/item_margin"
+                    android:layout_marginStart="@dimen/item_margin"/>
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tab2_user_profile_url"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_marginLeft="@dimen/item_margin"
+                    android:layout_marginStart="@dimen/item_margin"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

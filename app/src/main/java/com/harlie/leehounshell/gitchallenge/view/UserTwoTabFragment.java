@@ -55,6 +55,7 @@ public class UserTwoTabFragment extends UserTabFragment {
                 mProfileUrl.setText(getGitUser().getUserProfileUrl());
             }
             if (mAvatar != null) {
+                setAvatarClickListener();
                 loadAvatarImage(getGitUser().getUserAvatarUrl());
             }
         }

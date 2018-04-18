@@ -55,6 +55,7 @@ public class UserOneTabFragment extends UserTabFragment {
                 mProfileUrl.setText(getGitUser().getUserProfileUrl());
             }
             if (mAvatar != null) {
+                setAvatarClickListener();
                 loadAvatarImage(getGitUser().getUserAvatarUrl());
             }
         }
