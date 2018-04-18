@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
@@ -25,9 +26,12 @@ public class UserTabFragment extends Fragment {
 
     protected View mView;
     protected GitUser_Model mGitUser;
+    protected AppCompatTextView mUserNameLabel;
     protected AppCompatTextView mUserName;
+    protected AppCompatTextView mProfileUrlLabel;
     protected AppCompatTextView mProfileUrl;
     protected RoundedImageView mAvatar;
+    protected RecyclerView mRecyclerView;
     protected int mUserNumber;
 
     @Override
@@ -77,7 +81,24 @@ public class UserTabFragment extends Fragment {
         }
     }
 
-    private void showUserProfile(String profileUrl) {
+    public void showRepository(String repositoryUrl) {
+        LogHelper.v(TAG, "showUserProfile");
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+        intent.setData(Uri.parse(repositoryUrl));
+        try {
+            LogHelper.v(TAG, "startActivityForResult: Linked-In");
+            startActivityForResult(intent, 1234);
+        } catch (final android.content.ActivityNotFoundException e) {
+            LogHelper.w(TAG, "no internet browser found: e=" + e);
+            String no_internet_browser = getResources().getString(R.string.no_internet_browser);
+            @SuppressLint("ShowToast") Toast toast = Toast.makeText(getContext(), no_internet_browser, Toast.LENGTH_SHORT);
+            new CustomToast(toast).invoke();
+        }
+    }
+
+    public void showUserProfile(String profileUrl) {
         LogHelper.v(TAG, "showUserProfile");
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
@@ -97,7 +118,10 @@ public class UserTabFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         LogHelper.v(TAG, "onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode);
-        if (requestCode == 5678) {
+        if (requestCode == 1234) {
+            LogHelper.v(TAG, "GitHub repository successfully viewed");
+        }
+        else if (requestCode == 5678) {
             LogHelper.v(TAG, "GitHub profile successfully viewed");
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -125,9 +149,12 @@ public class UserTabFragment extends Fragment {
         LogHelper.v(TAG, "onDestroy");
         mView = null;
         mGitUser = null;
+        mUserNameLabel = null;
         mUserName = null;
+        mProfileUrlLabel = null;
         mProfileUrl = null;
         mAvatar = null;
+        mRecyclerView = null;
         super.onDestroy();
     }
 }

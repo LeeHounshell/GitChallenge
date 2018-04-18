@@ -6,4 +6,6 @@
     <dimen name="small_text_size">18sp</dimen>
     <dimen name="tab_padding">30sp</dimen>
     <dimen name="cardview_corner_radius">16dp</dimen>
+    <dimen name="card_margin">12dp</dimen>
+    <dimen name="cardview_elevation">4dp</dimen>
 </resources>

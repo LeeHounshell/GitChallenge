@@ -24,6 +24,7 @@ public class TheWinner extends BaseObservable {
         this.mWinner = user.getUserName()
                 + " "
                 + context.getString(R.string.the_winner)
+                + " "
                 + totalStars
                 + " "
                 + context.getString(R.string.stars);

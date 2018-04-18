@@ -139,6 +139,13 @@ public class BaseActivity extends AppCompatActivity
         }
     }
 
+    public void showSoftKeyboard() {
+        LogHelper.v(TAG, "showSoftKeyboard");
+        if (getWindow() != null) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        }
+    }
+
     public void goToMainActivity() {
         LogHelper.v(TAG, "goToMainActivity");
         Intent browseIntent = new Intent(this, MainActivity.class);

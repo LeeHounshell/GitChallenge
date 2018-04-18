@@ -39,4 +39,14 @@
         <item name="android:elevation">@dimen/button_elevation</item>
     </style>
 
+    <style name="CardViewStyle" parent="MyAppTheme">
+        <item name="android:elevation">@dimen/cardview_elevation</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:textIsSelectable">false</item>
+        <item name="android:layout_marginStart">@dimen/card_margin</item>
+        <item name="android:layout_marginLeft">@dimen/card_margin</item>
+        <item name="android:layout_marginEnd">@dimen/card_margin</item>
+        <item name="android:layout_marginRight">@dimen/card_margin</item>
+    </style>
+
 </resources>

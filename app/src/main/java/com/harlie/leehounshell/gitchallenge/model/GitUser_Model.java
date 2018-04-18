@@ -34,7 +34,12 @@ public class GitUser_Model implements Parcelable {
     public void enterGitUser(View view, MainActivity mainActivity) {
         mUserName = ((AppCompatEditText) view).getText().toString().trim();
         LogHelper.v(TAG, "enterGitUser: mUserName=" + mUserName);
-        mainActivity.hideSoftKeyboard();
+        if (mUserName.length() == 0) {
+            mainActivity.showSoftKeyboard();
+        }
+        else {
+            mainActivity.hideSoftKeyboard();
+        }
     }
 
     public String getUserName() {

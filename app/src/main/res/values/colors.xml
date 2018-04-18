@@ -16,5 +16,6 @@
     <color name="tab_unselected_text_color">#B22222</color>
     <color name="tab_background_selected">#3CB371</color>
     <color name="tab_background_unselected">#8B008B</color>
+    <color name="colorDarkTurquoise">#00CED1</color>
 
 </resources>

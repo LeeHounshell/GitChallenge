@@ -14,7 +14,7 @@
 
     // BrowseUsersRepositorysActivity
     <string name="the_winner">is the winner with</string>
-    <string name="stars">stars!</string>
+    <string name="stars">stars</string>
     <string name="user_one">User One</string>
     <string name="user_two">User Two</string>
     <string name="user_name">User Name</string>
