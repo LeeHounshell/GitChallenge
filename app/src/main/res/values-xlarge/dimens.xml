@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="large_item_margin">36dp</dimen>
+    <dimen name="item_margin">24dp</dimen>
+    <dimen name="small_item_margin">16dp</dimen>
+    <dimen name="text_size">24sp</dimen>
+    <dimen name="small_text_size">18sp</dimen>
+</resources>

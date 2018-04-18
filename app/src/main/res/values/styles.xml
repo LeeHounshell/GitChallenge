@@ -27,13 +27,13 @@
     <style name="MyPrimaryTextViewStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorPrimaryText</item>
         <item name="android:textSize">@dimen/text_size</item>
-        <item name="android:layout_margin">@dimen/item_margin</item>
+        <item name="android:layout_margin">@dimen/small_item_margin</item>
     </style>
 
     <style name="MySecondaryTextViewStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorSecondaryText</item>
         <item name="android:textSize">@dimen/text_size</item>
-        <item name="android:layout_margin">@dimen/item_margin</item>
+        <item name="android:layout_margin">@dimen/small_item_margin</item>
     </style>
 
     <style name="TargetButton" parent="MyAppTheme">

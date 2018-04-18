@@ -27,7 +27,7 @@
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/item_margin"/>
+            android:layout_height="@dimen/small_item_margin"/>
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/winner"

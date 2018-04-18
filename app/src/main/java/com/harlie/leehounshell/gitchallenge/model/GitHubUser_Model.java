@@ -1,7 +1,6 @@
 package com.harlie.leehounshell.gitchallenge.model;
 
 import android.databinding.BaseObservable;
-import android.databinding.BindingAdapter;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v7.widget.AppCompatTextView;

@@ -3,10 +3,10 @@ package com.harlie.leehounshell.gitchallenge.util;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.harlie.leehounshell.gitchallenge.R;
 import com.harlie.leehounshell.gitchallenge.view.BaseActivity;
@@ -47,6 +47,7 @@ public class GitHubUserNameInputDialog
                 });
 
         alert = alertDialogBuilder.create();
+        alert.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         alert.show();
     }
 

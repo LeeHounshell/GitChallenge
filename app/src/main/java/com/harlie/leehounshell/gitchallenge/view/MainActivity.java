@@ -3,7 +3,6 @@ package com.harlie.leehounshell.gitchallenge.view;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
@@ -11,6 +10,7 @@ import com.harlie.leehounshell.gitchallenge.R;
 import com.harlie.leehounshell.gitchallenge.databinding.ActivityMainBinding;
 import com.harlie.leehounshell.gitchallenge.model.GitHubUser_Model;
 import com.harlie.leehounshell.gitchallenge.util.CustomToast;
+import com.harlie.leehounshell.gitchallenge.util.CustomTooltip;
 import com.harlie.leehounshell.gitchallenge.util.GitHubUserNameInputDialog;
 import com.harlie.leehounshell.gitchallenge.util.GitHubUsersSearchResults;
 import com.harlie.leehounshell.gitchallenge.util.LogHelper;
@@ -20,17 +20,11 @@ import com.harlie.leehounshell.gitchallenge.view_model.GitHubUserPair_ViewModel;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import it.sephiroth.android.library.tooltip.Tooltip;
-
 public class MainActivity extends BaseActivity {
     private final static String TAG = "LEE: <" + MainActivity.class.getSimpleName() + ">";
 
-    private final static int TOOLTIP_DISPLAY_TIME = 5000;
-
     private ActivityMainBinding mBinding;
     private GitHubUserPair_ViewModel mGitHubUserPair_ViewModel;
-
-    public static volatile boolean sSeenTooltip_GitHubUsers = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +46,7 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         LogHelper.v(TAG, "onResume");
         super.onResume();
-        tooltip();
+        CustomTooltip.tooltip(this, R.id.start_button);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -89,7 +83,7 @@ public class MainActivity extends BaseActivity {
             mGitHubUserPair_ViewModel.getGitHubUserOne().setUserName(event.getTextMessage());
             // FIXME: this should notify using the data binding..
 //            mGitHubUserPair_ViewModel.getGitHubUserOne().notifyPropertyChanged(R.id.git_user_one_edit_text);
-            // TODO: remove the findViewById code when the data binding issue is resolved
+            // TODO: remove the findViewById code when the above data binding issue is resolved
             AppCompatTextView editedNameTextView = findViewById(R.id.git_user_one_edit_text);
             editedNameTextView.setText(event.getTextMessage());
         }
@@ -147,49 +141,15 @@ public class MainActivity extends BaseActivity {
                 LogHelper.v(TAG, "online");
                 if (!event.searchOneSuccess()) {
                     LogHelper.v(TAG, "bad user one");
-                    String invalidUserName = getString(R.string.invalid_user_name_one);
+                    String invalidUserName = getString(R.string.cant_get_user_name_one);
                     CustomToast.post(invalidUserName);
                 }
                 if (!event.searchTwoSuccess()) {
                     LogHelper.v(TAG, "bad user two");
-                    String invalidUserName = getString(R.string.invalid_user_name_two);
+                    String invalidUserName = getString(R.string.cant_get_user_name_two);
                     CustomToast.post(invalidUserName);
                 }
             }
-        }
-    }
-
-    private void tooltip() {
-        LogHelper.v(TAG, "tooltip");
-        if (baseActivity() != null && ! sSeenTooltip_GitHubUsers) {
-            baseActivity().getHandler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (baseActivity() != null) {
-                        LogHelper.v(TAG, "tooltip: make");
-                        sSeenTooltip_GitHubUsers = true;
-                        String tip = getResources().getString(R.string.tooltip_enter_github_users);
-                        AppCompatImageButton anchor = findViewById(R.id.start_button);
-                        Tooltip.TooltipView tooltipView = Tooltip.make(MainActivity.this,
-                                new Tooltip.Builder(1)
-                                        .anchor(anchor, Tooltip.Gravity.CENTER)
-                                        .closePolicy(new Tooltip.ClosePolicy()
-                                                .insidePolicy(true, false)
-                                                .outsidePolicy(true, false), TOOLTIP_DISPLAY_TIME)
-                                        .activateDelay(0)
-                                        .showDelay(0)
-                                        .text(tip)
-                                        .textSize(getResources().getInteger(R.integer.tooltip_text_size))
-                                        .withStyleId(R.style.ToolTipLayoutCustomStyle)
-                                        .floatingAnimation(Tooltip.AnimationBuilder.DEFAULT)
-                                        .maxWidth(600)
-                                        .withArrow(false)
-                                        .withOverlay(true).build()
-                        );
-                        tooltipView.show();
-                    }
-                }
-            }, 1000);
         }
     }
 

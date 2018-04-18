@@ -15,6 +15,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.security.ProviderInstaller;
 import com.harlie.leehounshell.gitchallenge.GitChallengeApplication;
 import com.harlie.leehounshell.gitchallenge.R;
 import com.harlie.leehounshell.gitchallenge.model.GitHubUser_Model;
@@ -34,6 +38,8 @@ public class BaseActivity extends AppCompatActivity
 {
     private final static String TAG = "LEE: <" + BaseActivity.class.getSimpleName() + ">";
 
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
     private volatile boolean mStopped;
     private Handler mHandler;
     private ProgressBar mProgressCircle;
@@ -43,6 +49,7 @@ public class BaseActivity extends AppCompatActivity
         LogHelper.v(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         hideSoftKeyboard();
+        updateAndroidSecurityProvider();
     }
 
     @Override
@@ -67,6 +74,22 @@ public class BaseActivity extends AppCompatActivity
         LogHelper.v(TAG, "onNavigateUp");
         finish();
         return true;
+    }
+
+    // BUGFIX: android was falling back to SSLv3 from TLSv1
+    // from: https://stackoverflow.com/questions/29916962/javax-net-ssl-sslhandshakeexception-javax-net-ssl-sslprotocolexception-ssl-han
+    private void updateAndroidSecurityProvider() {
+        try {
+            ProviderInstaller.installIfNeeded(this);
+        } catch (GooglePlayServicesRepairableException e) {
+            // Thrown when Google Play Services is not installed, up-to-date, or enabled
+            // Show dialog to allow users to install, update, or otherwise enable Google Play services.
+            GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+            int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+            apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST);
+        } catch (GooglePlayServicesNotAvailableException e) {
+            LogHelper.e(TAG, "GooglePlayServicesNotAvailableException - Google Play Services not available.");
+        }
     }
 
     public BaseActivity baseActivity() {

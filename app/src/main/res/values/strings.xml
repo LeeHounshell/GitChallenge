@@ -10,12 +10,12 @@
     <string name="enter_github_user_name_one">click here for 1st user name</string>
     <string name="enter_github_user_name_two">click here for 2nd user name</string>
     <string name="empty_user_name">enter both user names</string>
-    <string name="invalid_user_name_one">first user name is invalid!</string>
-    <string name="invalid_user_name_two">second user name is invalid!</string>
+    <string name="cant_get_user_name_one">unable to retrieve user one!</string>
+    <string name="cant_get_user_name_two">unable to retrieve user two!</string>
     <string name="tooltip_enter_github_users">Enter the names of two GitHub users then press Start. Both names must be for valid GitHub user logins.</string>
 
     // BrowseUsersRepositorysActivity
-    <string name="the_winner">is the winner with</string>
+    <string name="the_winner">wins with</string>
     <string name="stars">stars</string>
     <string name="user_one">User One</string>
     <string name="user_two">User Two</string>
