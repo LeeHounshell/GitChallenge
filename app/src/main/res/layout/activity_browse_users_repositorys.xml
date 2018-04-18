@@ -1,9 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.BrowseUsersRepositorysActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <data>
+        <variable
+            name="winner"
+            type="com.harlie.leehounshell.gitchallenge.util.TheWinner"/>
+        <variable
+            name="gitUserOne"
+            type="com.harlie.leehounshell.gitchallenge.model.GitUser_Model"/>
+        <variable
+            name="gitUserTwo"
+            type="com.harlie.leehounshell.gitchallenge.model.GitUser_Model"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/actionBarSize"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/item_margin"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/winner"
+            style="@style/MySecondaryTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{winner.getWinner()}"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"/>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabBackground="@drawable/tab_color_selector"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            app:tabTextColor="@color/tab_unselected_text_color"
+            app:tabSelectedTextColor="@color/tab_selected_text_color"
+            app:tabPaddingStart="@dimen/tab_padding"
+            app:tabPaddingEnd="@dimen/tab_padding"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            style="@style/PagerTitleStrip"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</layout>

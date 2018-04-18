@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Git Challenge</string>
+
+    // MainActivity
     <string name="start">Start</string>
     <string name="git_user_one">GitHub User One</string>
     <string name="git_user_two">GitHub User Two</string>
@@ -9,4 +11,12 @@
     <string name="invalid_user_name_one">first user name is invalid!</string>
     <string name="invalid_user_name_two">second user name is invalid!</string>
     <string name="tooltip_enter_git_users">Enter the names of two GitHub users then press Start. Both names must be for valid GitHub user logins.</string>
+
+    // BrowseUsersRepositorysActivity
+    <string name="the_winner">is the winner with</string>
+    <string name="stars">stars total!</string>
+    <string name="user_one">User One</string>
+    <string name="user_two">User Two</string>
+    <string name="user_name">User Name</string>
+    <string name="profile">Profile URL</string>
 </resources>

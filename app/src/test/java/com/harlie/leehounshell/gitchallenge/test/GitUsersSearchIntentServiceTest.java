@@ -1,12 +1,10 @@
 package com.harlie.leehounshell.gitchallenge.test;
 
-
 import android.content.Intent;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.support.v7.app.AppCompatActivity;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.harlie.leehounshell.gitchallenge.model.GitUser_Model;
 import com.harlie.leehounshell.gitchallenge.model.Repository_Model;
@@ -17,9 +15,6 @@ import com.harlie.leehounshell.gitchallenge.view.MainActivity;
 
 import junit.framework.Assert;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,8 +33,6 @@ import static com.harlie.leehounshell.gitchallenge.service.GitUsersSearchIntentS
 import static com.harlie.leehounshell.gitchallenge.service.GitUsersSearchIntentService.GIT_USER_ONE;
 import static com.harlie.leehounshell.gitchallenge.service.GitUsersSearchIntentService.GIT_USER_TWO;
 import static com.harlie.leehounshell.gitchallenge.service.GitUsersSearchIntentService.RECEIVER;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
 

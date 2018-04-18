@@ -42,7 +42,6 @@ public class BaseActivity extends AppCompatActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         LogHelper.v(TAG, "onCreate");
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
         hideSoftKeyboard();
     }
 
@@ -53,6 +52,7 @@ public class BaseActivity extends AppCompatActivity
         if (this instanceof MainActivity) {
             mProgressCircle = findViewById(R.id.progress_circle_main);
         }
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -165,6 +165,7 @@ public class BaseActivity extends AppCompatActivity
         LogHelper.v(TAG, "onStop");
         super.onStop();
         mStopped = true;
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

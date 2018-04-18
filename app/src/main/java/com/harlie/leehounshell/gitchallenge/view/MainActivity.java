@@ -35,12 +35,12 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         mGitUserPair_ViewModel = ViewModelProviders.of(this).get(GitUserPair_ViewModel.class);
-        GitUser_Model mGitUserOne = mGitUserPair_ViewModel.getGitUserOne();
-        GitUser_Model mGitUserTwo = mGitUserPair_ViewModel.getGitUserTwo();
+        GitUser_Model gitUserOne = mGitUserPair_ViewModel.getGitUserOne();
+        GitUser_Model gitUserTwo = mGitUserPair_ViewModel.getGitUserTwo();
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        mBinding.setGitUserOne(mGitUserOne);
-        mBinding.setGitUserTwo(mGitUserTwo);
+        mBinding.setGitUserOne(gitUserOne);
+        mBinding.setGitUserTwo(gitUserTwo);
         mBinding.setMainActivity(this);
         mBinding.executePendingBindings();
     }

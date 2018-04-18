@@ -20,6 +20,12 @@
         <item name="android:layout_margin">@dimen/item_margin</item>
     </style>
 
+    <style name="MySecondaryTextViewStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorSecondaryText</item>
+        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:layout_margin">@dimen/item_margin</item>
+    </style>
+
     <style name="TargetButton" parent="MyAppTheme">
         <item name="android:scaleType">centerInside</item>
         <item name="android:adjustViewBounds">true</item>
@@ -42,6 +48,17 @@
         <item name="android:color">@color/notification_background</item>
         <item name="ttlm_repeatCount">999</item>
         <item name="ttlm_duration">400</item>
+    </style>
+
+    <style name="PagerTitleStrip">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/small_text_size</item>
+    </style>
+
+    <style name="AlbumImageStyle" parent="MyAppTheme">
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:cropToPadding">false</item>
     </style>
 
 </resources>
