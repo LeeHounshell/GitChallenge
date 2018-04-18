@@ -1,6 +1,7 @@
 package com.harlie.leehounshell.gitchallenge.view;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,7 @@ public class UserTwoTabFragment extends UserTabFragment {
     private BrowseUsersRepositorysActivity.GitHubUserTwoResultsEvent mLastEvent;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogHelper.v(TAG, "onCreateView");
         mView = inflater.inflate(R.layout.user2_tab_fragment, container, false);
         findTheViews();
@@ -61,7 +62,7 @@ public class UserTwoTabFragment extends UserTabFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(BrowseUsersRepositorysActivity.GitHubUserTwoResultsEvent event) {
-        LogHelper.v(TAG, "===> onMessageEvent: userNumber=" + mUserNumber + ", event=" + event);
+        LogHelper.v(TAG, "===> onMessageEvent: userNumber=" + getUserNumber() + ", event=" + event);
         mLastEvent = event;
         handleLastEvent();
     }

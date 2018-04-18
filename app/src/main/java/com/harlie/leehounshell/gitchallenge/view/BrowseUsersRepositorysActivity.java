@@ -93,7 +93,7 @@ public class BrowseUsersRepositorysActivity extends BaseActivity {
             LogHelper.v(TAG, "userOne=" + userOne);
             LogHelper.v(TAG, "userTwo=" + userOne);
 
-            mViewPager = (ViewPager) findViewById(R.id.pager);
+            mViewPager = findViewById(R.id.pager);
             setupViewPager(mViewPager);
             setupTabLayout();
             setTheWinner();
@@ -118,7 +118,7 @@ public class BrowseUsersRepositorysActivity extends BaseActivity {
 
     private void setupTabLayout() {
         LogHelper.v(TAG, "setupTabLayout");
-        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        mTabLayout = findViewById(R.id.tab_layout);
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.user_one)));
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.user_two)));
 

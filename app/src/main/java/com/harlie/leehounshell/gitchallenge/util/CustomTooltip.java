@@ -4,7 +4,6 @@ import android.support.v7.widget.AppCompatImageButton;
 
 import com.harlie.leehounshell.gitchallenge.R;
 import com.harlie.leehounshell.gitchallenge.view.BaseActivity;
-import com.harlie.leehounshell.gitchallenge.view.MainActivity;
 
 import it.sephiroth.android.library.tooltip.Tooltip;
 

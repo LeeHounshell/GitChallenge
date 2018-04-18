@@ -96,7 +96,7 @@ public class GitHubUsersSearchResults implements MyResultReceiver.Receiver {
         LogHelper.v(TAG, "parseGitHubData");
         try {
             JSONArray jsonArray = new JSONArray(results);
-            JSONObject jsonObj = null;
+            @SuppressWarnings("UnusedAssignment") JSONObject jsonObj = null;
             for (int i = 0; i < jsonArray.length(); i++) {
                 jsonObj = jsonArray.getJSONObject(i);
                 if (i == 0) {

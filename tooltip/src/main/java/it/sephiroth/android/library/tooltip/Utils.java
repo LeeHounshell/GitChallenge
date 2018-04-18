@@ -57,6 +57,7 @@ final class Utils {
         return (a == null) ? (b == null) : a.equals(b);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean rectContainsRectWithTolerance(@NonNull final Rect parentRect, @NonNull final Rect childRect, final int t) {
         return parentRect.contains(childRect.left + t, childRect.top + t, childRect.right - t, childRect.bottom - t);
     }

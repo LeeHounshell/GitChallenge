@@ -22,6 +22,30 @@ Allow app navigation back to input two more names.
  * Allow clicking an avatar to open the user's profile
  * Allow clicking an repository to open the repository page
 
+## Implemenation Notes
+
+Automated tests use Robolectric to test Intent Service and Service Handler functionality.
+
+This app uses data binding.
+
+This app uses the new Android Architecture Components libraries.
+
+The Green Robot EventBus is used to implement data "flows."
+
+
+
+---
+SCREENSHOTS
+---
+
+
+![screen](../master/screenshots/Screenshot_1.png)
+
+![screen](../master/screenshots/Screenshot_2.png)
+
+![screen](../master/screenshots/Screenshot_3.png)
+
+
 
 # LICENSE
 

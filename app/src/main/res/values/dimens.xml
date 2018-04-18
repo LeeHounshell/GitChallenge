@@ -5,4 +5,10 @@
     <dimen name="cardview_corner_radius">16dp</dimen>
     <dimen name="card_margin">12dp</dimen>
     <dimen name="cardview_elevation">4dp</dimen>
+
+    <dimen name="large_item_margin">18dp</dimen>
+    <dimen name="item_margin">14dp</dimen>
+    <dimen name="small_item_margin">10dp</dimen>
+    <dimen name="text_size">18sp</dimen>
+    <dimen name="small_text_size">15sp</dimen>
 </resources>

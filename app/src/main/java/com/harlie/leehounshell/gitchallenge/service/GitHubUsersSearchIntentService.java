@@ -102,6 +102,7 @@ public class GitHubUsersSearchIntentService extends IntentService {
         receiver.send(STATUS_GITHUB_USER_RESULTS, bundle);
     }
 
+    @SuppressWarnings("ReturnInsideFinallyBlock")
     private String requestGitHubRepositoriesForUser(String gitHubUserName) {
         LogHelper.v(TAG, "requestGitHubRepositoriesForUser: gitHubUserName=" + gitHubUserName);
         String results = "";
@@ -131,9 +132,7 @@ public class GitHubUsersSearchIntentService extends IntentService {
         catch (IOException e) {
             LogHelper.e(TAG, "*** UNABLE TO LOAD JSON *** - e=" + e);
         }
-        finally {
-            return results;
-        }
+        return results;
     }
 
     @Override

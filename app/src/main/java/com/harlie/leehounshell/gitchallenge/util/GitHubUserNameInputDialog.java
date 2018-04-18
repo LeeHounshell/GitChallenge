@@ -47,7 +47,10 @@ public class GitHubUserNameInputDialog
                 });
 
         alert = alertDialogBuilder.create();
-        alert.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        try {
+            alert.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+        catch (NullPointerException ignored) {}
         alert.show();
     }
 

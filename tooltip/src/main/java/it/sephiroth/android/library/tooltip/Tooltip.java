@@ -101,6 +101,7 @@ public final class Tooltip {
                     ((TooltipView) child).remove();
                 }
             }
+            return true;
         }
         return false;
     }

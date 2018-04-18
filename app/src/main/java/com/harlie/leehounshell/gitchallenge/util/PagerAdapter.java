@@ -50,6 +50,10 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         return mFragmentTitleList.get(position);
     }
 
+    public Fragment getPageFragment(int position) {
+        return mFragmentList.get(position);
+    }
+
     public void addFragment(Fragment fragment, String title) {
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);
