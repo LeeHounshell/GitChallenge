@@ -184,12 +184,12 @@ public class BrowseUsersRepositorysActivity extends BaseActivity {
         switch (userNumber) {
             case 1: {
                 GitUserOneResultsEvent userResultsEvent = new GitUserOneResultsEvent(userModel, userNumber);
-                EventBus.getDefault().postSticky(userResultsEvent);
+                EventBus.getDefault().post(userResultsEvent);
                 break;
             }
             case 2: {
                 GitUserTwoResultsEvent userResultsEvent = new GitUserTwoResultsEvent(userModel, userNumber);
-                EventBus.getDefault().postSticky(userResultsEvent);
+                EventBus.getDefault().post(userResultsEvent);
                 break;
             }
         }

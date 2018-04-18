@@ -59,7 +59,7 @@ public class UserTwoTabFragment extends UserTabFragment {
         }
     }
 
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(BrowseUsersRepositorysActivity.GitUserTwoResultsEvent event) {
         LogHelper.v(TAG, "===> onMessageEvent: userNumber=" + mUserNumber + ", event=" + event);
         mLastEvent = event;
