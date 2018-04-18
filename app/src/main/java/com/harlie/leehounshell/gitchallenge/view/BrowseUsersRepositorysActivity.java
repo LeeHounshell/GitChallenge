@@ -13,7 +13,7 @@ import com.harlie.leehounshell.gitchallenge.model.Repository_Model;
 import com.harlie.leehounshell.gitchallenge.util.LogHelper;
 import com.harlie.leehounshell.gitchallenge.util.PagerAdapter;
 import com.harlie.leehounshell.gitchallenge.util.TheWinner;
-import com.harlie.leehounshell.gitchallenge.view_model.GitUserPair_ViewModel;
+import com.harlie.leehounshell.gitchallenge.view_model.GitHubUserPair_ViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -24,22 +24,22 @@ public class BrowseUsersRepositorysActivity extends BaseActivity {
     final static String KEY_USER_TWO = "user_two";
 
     private ActivityBrowseUsersRepositorysBinding mBinding;
-    private GitUserPair_ViewModel mGitUserPair_ViewModel;
+    private GitHubUserPair_ViewModel mGitHubUserPair_ViewModel;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private TheWinner mWinner;
     private UserOneTabFragment mTabFragment1;
     private UserTwoTabFragment mTabFragment2;
 
-    public static class GitUserResultsEvent {
-        private final static String TAG = "LEE: <" + GitUserResultsEvent.class.getSimpleName() + ">";
+    public static class GitHubUserResultsEvent {
+        private final static String TAG = "LEE: <" + GitHubUserResultsEvent.class.getSimpleName() + ">";
 
         @SuppressWarnings("CanBeFinal")
         private GitHubUser_Model mUserModel;
         private int mUserNumber;
 
-        GitUserResultsEvent(GitHubUser_Model userModel, int userNumber) {
-            LogHelper.v(TAG, "GitUsersResultsEvent");
+        GitHubUserResultsEvent(GitHubUser_Model userModel, int userNumber) {
+            LogHelper.v(TAG, "GitHubUsersResultsEvent");
             this.mUserModel = userModel;
             this.mUserNumber = userNumber;
         }
@@ -54,20 +54,20 @@ public class BrowseUsersRepositorysActivity extends BaseActivity {
 
         @Override
         public String toString() {
-            return "GitUserResultsEvent{" +
+            return "GitHubUserResultsEvent{" +
                     "mUserModel=" + mUserModel +
                     '}';
         }
     }
 
-    public static class GitUserOneResultsEvent extends GitUserResultsEvent {
-        public GitUserOneResultsEvent(GitHubUser_Model userModel, int userNumber) {
+    public static class GitHubUserOneResultsEvent extends GitHubUserResultsEvent {
+        public GitHubUserOneResultsEvent(GitHubUser_Model userModel, int userNumber) {
             super(userModel, userNumber);
         }
     }
 
-    public static class GitUserTwoResultsEvent extends GitUserResultsEvent {
-        public GitUserTwoResultsEvent(GitHubUser_Model userModel, int userNumber) {
+    public static class GitHubUserTwoResultsEvent extends GitHubUserResultsEvent {
+        public GitHubUserTwoResultsEvent(GitHubUser_Model userModel, int userNumber) {
             super(userModel, userNumber);
         }
     }
@@ -77,18 +77,18 @@ public class BrowseUsersRepositorysActivity extends BaseActivity {
         LogHelper.v(TAG, "onCreate");
         super.onCreate(savedInstanceState);
 
-        mGitUserPair_ViewModel = ViewModelProviders.of(this).get(GitUserPair_ViewModel.class);
+        mGitHubUserPair_ViewModel = ViewModelProviders.of(this).get(GitHubUserPair_ViewModel.class);
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_browse_users_repositorys);
 
         if (getIntent().getExtras() != null) {
             GitHubUser_Model userOne = getIntent().getParcelableExtra(KEY_USER_ONE);
-            mGitUserPair_ViewModel.setGitUserOne(userOne);
-            mBinding.setGitUserOne(mGitUserPair_ViewModel.getGitHubUserOne());
+            mGitHubUserPair_ViewModel.setGitHubUserOne(userOne);
+            mBinding.setGitHubUserOne(mGitHubUserPair_ViewModel.getGitHubUserOne());
 
             GitHubUser_Model userTwo = getIntent().getParcelableExtra(KEY_USER_TWO);
-            mGitUserPair_ViewModel.setGitUserTwo(userTwo);
-            mBinding.setGitUserTwo(mGitUserPair_ViewModel.getGitUserTwo());
+            mGitHubUserPair_ViewModel.setGitHubUserTwo(userTwo);
+            mBinding.setGitHubUserTwo(mGitHubUserPair_ViewModel.getGitHubUserTwo());
 
             LogHelper.v(TAG, "userOne=" + userOne);
             LogHelper.v(TAG, "userTwo=" + userOne);
@@ -152,8 +152,8 @@ public class BrowseUsersRepositorysActivity extends BaseActivity {
             @Override
             public void run() {
                 LogHelper.v(TAG, "*** ---------> post userModels to the UserTabFragments <--------- ***");
-                post(mGitUserPair_ViewModel.getGitHubUserOne(), 1); // the userNumber indicates which UserTabFragment owns this event
-                post(mGitUserPair_ViewModel.getGitUserTwo(), 2);
+                post(mGitHubUserPair_ViewModel.getGitHubUserOne(), 1); // the userNumber indicates which UserTabFragment owns this event
+                post(mGitHubUserPair_ViewModel.getGitHubUserTwo(), 2);
             }
         }, 1000);
     }
@@ -161,13 +161,13 @@ public class BrowseUsersRepositorysActivity extends BaseActivity {
     private void setTheWinner() {
         mWinner = new TheWinner();
         mBinding.setWinner(mWinner);
-        int numberStarsTotalOne = countTotalNumberStars(mGitUserPair_ViewModel.getGitHubUserOne());
-        int numberStarsTotalTwo = countTotalNumberStars(mGitUserPair_ViewModel.getGitUserTwo());
+        int numberStarsTotalOne = countTotalNumberStars(mGitHubUserPair_ViewModel.getGitHubUserOne());
+        int numberStarsTotalTwo = countTotalNumberStars(mGitHubUserPair_ViewModel.getGitHubUserTwo());
         if (numberStarsTotalOne > numberStarsTotalTwo) {
-            mWinner.setWinner(mGitUserPair_ViewModel.getGitHubUserOne(), numberStarsTotalOne);
+            mWinner.setWinner(mGitHubUserPair_ViewModel.getGitHubUserOne(), numberStarsTotalOne);
         }
         else {
-            mWinner.setWinner(mGitUserPair_ViewModel.getGitUserTwo(), numberStarsTotalTwo);
+            mWinner.setWinner(mGitHubUserPair_ViewModel.getGitHubUserTwo(), numberStarsTotalTwo);
         }
     }
 
@@ -183,12 +183,12 @@ public class BrowseUsersRepositorysActivity extends BaseActivity {
         LogHelper.v(TAG, "post");
         switch (userNumber) {
             case 1: {
-                GitUserOneResultsEvent userResultsEvent = new GitUserOneResultsEvent(userModel, userNumber);
+                GitHubUserOneResultsEvent userResultsEvent = new GitHubUserOneResultsEvent(userModel, userNumber);
                 EventBus.getDefault().post(userResultsEvent);
                 break;
             }
             case 2: {
-                GitUserTwoResultsEvent userResultsEvent = new GitUserTwoResultsEvent(userModel, userNumber);
+                GitHubUserTwoResultsEvent userResultsEvent = new GitHubUserTwoResultsEvent(userModel, userNumber);
                 EventBus.getDefault().post(userResultsEvent);
                 break;
             }
@@ -205,7 +205,7 @@ public class BrowseUsersRepositorysActivity extends BaseActivity {
     protected void onDestroy() {
         LogHelper.v(TAG, "onDestroy");
         mBinding = null;
-        mGitUserPair_ViewModel = null;
+        mGitHubUserPair_ViewModel = null;
         mTabLayout = null;
         mViewPager = null;
         mWinner = null;

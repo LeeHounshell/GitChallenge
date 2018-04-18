@@ -152,11 +152,11 @@ public class BaseActivity extends AppCompatActivity
         startTheActivity(browseIntent);
     }
 
-    public void goToBrowseUsersRepositorysActivity(GitHubUser_Model gitUserOne, GitHubUser_Model gitUserTwo) {
+    public void goToBrowseUsersRepositorysActivity(GitHubUser_Model gitHubUserOne, GitHubUser_Model gitHubUserTwo) {
         LogHelper.v(TAG, "goToBrowseUsersRepositorysActivity");
         Intent browseIntent = new Intent(this, BrowseUsersRepositorysActivity.class);
-        browseIntent.putExtra(KEY_USER_ONE, gitUserOne);
-        browseIntent.putExtra(KEY_USER_TWO, gitUserTwo);
+        browseIntent.putExtra(KEY_USER_ONE, gitHubUserOne);
+        browseIntent.putExtra(KEY_USER_TWO, gitHubUserTwo);
         startTheActivity(browseIntent);
     }
 

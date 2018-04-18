@@ -10,15 +10,15 @@ import com.harlie.leehounshell.gitchallenge.util.GitHubUsersSearchResults;
 import com.harlie.leehounshell.gitchallenge.util.LogHelper;
 import com.harlie.leehounshell.gitchallenge.util.MyResultReceiver;
 
-public class GitUserPair_ViewModel extends ViewModel {
-    private final static String TAG = "LEE: <" + GitUserPair_ViewModel.class.getSimpleName() + ">";
+public class GitHubUserPair_ViewModel extends ViewModel {
+    private final static String TAG = "LEE: <" + GitHubUserPair_ViewModel.class.getSimpleName() + ">";
 
     private GitHubUser_Model mGitHubUserOne;
     private String mUserOneResults;
     private GitHubUser_Model mGitHubUserTwo;
     private String mUserTwoResults;
 
-    public GitUserPair_ViewModel() {
+    public GitHubUserPair_ViewModel() {
         mGitHubUserOne = new GitHubUser_Model();
         mGitHubUserTwo = new GitHubUser_Model();
     }
@@ -36,15 +36,15 @@ public class GitUserPair_ViewModel extends ViewModel {
         return mGitHubUserOne;
     }
 
-    public void setGitUserOne(GitHubUser_Model gitHubUserOne) {
+    public void setGitHubUserOne(GitHubUser_Model gitHubUserOne) {
         this.mGitHubUserOne = gitHubUserOne;
     }
 
-    public GitHubUser_Model getGitUserTwo() {
+    public GitHubUser_Model getGitHubUserTwo() {
         return mGitHubUserTwo;
     }
 
-    public void setGitUserTwo(GitHubUser_Model gitHubUserTwo) {
+    public void setGitHubUserTwo(GitHubUser_Model gitHubUserTwo) {
         this.mGitHubUserTwo = gitHubUserTwo;
     }
 }

@@ -23,5 +23,6 @@
     <string name="profile">Profile URL</string>
     <string name="no_internet_browser">Internet browser not found!</string>
     <string name="ok">Ok</string>
+    <string name="not_online">The Internet connection is offline!</string>
 
 </resources>

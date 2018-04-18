@@ -48,15 +48,15 @@ public class GitHubUsersSearchResults implements MyResultReceiver.Receiver {
         }
 
         public boolean searchOneSuccess() {
-            return userOne != null && userOne.getUserProfileUrl().length() > 0;
+            return userOne != null && userOne.getUserProfileUrl() != null && userOne.getUserProfileUrl().length() > 0;
         }
 
         public boolean searchTwoSuccess() {
-            return userTwo != null && userTwo.getUserProfileUrl().length() > 0;
+            return userTwo != null && userTwo.getUserProfileUrl() != null && userTwo.getUserProfileUrl().length() > 0;
         }
 
         public String toString() {
-            return "GitUserSearchResultsEvent{" +
+            return "GitHubUsersSearchResultsEvent{" +
                     "userOne='" + getUserOne() + '\'' +
                     "userTwo='" + getUserTwo() + '\'' +
                     '}';

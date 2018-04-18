@@ -14,7 +14,8 @@ import com.harlie.leehounshell.gitchallenge.util.CustomToast;
 import com.harlie.leehounshell.gitchallenge.util.GitHubUserNameInputDialog;
 import com.harlie.leehounshell.gitchallenge.util.GitHubUsersSearchResults;
 import com.harlie.leehounshell.gitchallenge.util.LogHelper;
-import com.harlie.leehounshell.gitchallenge.view_model.GitUserPair_ViewModel;
+import com.harlie.leehounshell.gitchallenge.util.NetworkHelper;
+import com.harlie.leehounshell.gitchallenge.view_model.GitHubUserPair_ViewModel;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -27,18 +28,18 @@ public class MainActivity extends BaseActivity {
     private final static int TOOLTIP_DISPLAY_TIME = 5000;
 
     private ActivityMainBinding mBinding;
-    private GitUserPair_ViewModel mGitUserPair_ViewModel;
+    private GitHubUserPair_ViewModel mGitHubUserPair_ViewModel;
 
-    public static volatile boolean sSeenTooltip_GitUsers = false;
+    public static volatile boolean sSeenTooltip_GitHubUsers = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         LogHelper.v(TAG, "onCreate");
         super.onCreate(savedInstanceState);
 
-        mGitUserPair_ViewModel = ViewModelProviders.of(this).get(GitUserPair_ViewModel.class);
-        GitHubUser_Model gitHubUserOne = mGitUserPair_ViewModel.getGitHubUserOne();
-        GitHubUser_Model gitHubUserTwo = mGitUserPair_ViewModel.getGitUserTwo();
+        mGitHubUserPair_ViewModel = ViewModelProviders.of(this).get(GitHubUserPair_ViewModel.class);
+        GitHubUser_Model gitHubUserOne = mGitHubUserPair_ViewModel.getGitHubUserOne();
+        GitHubUser_Model gitHubUserTwo = mGitHubUserPair_ViewModel.getGitHubUserTwo();
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mBinding.setGitHubUserOne(gitHubUserOne);
@@ -56,14 +57,14 @@ public class MainActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(GitHubUser_Model.GitHubUserNameRequestChangeEvent event) {
-        LogHelper.v(TAG, "onMessageEvent: event=" + event);
-        if (event.getCallbackId() == mGitUserPair_ViewModel.getGitHubUserOne().hashCode()) {
+        LogHelper.v(TAG, "REQUEST NAME CHANGE! onMessageEvent: event=" + event);
+        if (event.getCallbackId() == mGitHubUserPair_ViewModel.getGitHubUserOne().hashCode()) {
             LogHelper.v(TAG, "request enter new UserOne name");
-            popupInputDialog(mGitUserPair_ViewModel.getGitHubUserOne());
+            popupInputDialog(mGitHubUserPair_ViewModel.getGitHubUserOne());
         }
-        else if (event.getCallbackId() == mGitUserPair_ViewModel.getGitUserTwo().hashCode()) {
+        else if (event.getCallbackId() == mGitHubUserPair_ViewModel.getGitHubUserTwo().hashCode()) {
             LogHelper.v(TAG, "request enter new UserTwo name");
-            popupInputDialog(mGitUserPair_ViewModel.getGitUserTwo());
+            popupInputDialog(mGitHubUserPair_ViewModel.getGitHubUserTwo());
         }
         else {
             LogHelper.w(TAG, "*** orphan event=" + event);
@@ -82,21 +83,21 @@ public class MainActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(GitHubUserNameInputDialog.TextInputDialogEvent event) {
-        LogHelper.v(TAG, "onMessageEvent: event=" + event);
-        if (event.getCallbackId() == mGitUserPair_ViewModel.getGitHubUserOne().hashCode()) {
+        LogHelper.v(TAG, "GET USER NAME! onMessageEvent: event=" + event);
+        if (event.getCallbackId() == mGitHubUserPair_ViewModel.getGitHubUserOne().hashCode()) {
             LogHelper.v(TAG, "set UserOne name: name=" + event.getTextMessage());
-            mGitUserPair_ViewModel.getGitHubUserOne().setUserName(event.getTextMessage());
+            mGitHubUserPair_ViewModel.getGitHubUserOne().setUserName(event.getTextMessage());
             // FIXME: this should notify using the data binding..
-//            mGitUserPair_ViewModel.getGitHubUserOne().notifyPropertyChanged(R.id.git_user_one_edit_text);
+//            mGitHubUserPair_ViewModel.getGitHubUserOne().notifyPropertyChanged(R.id.git_user_one_edit_text);
             // TODO: remove the findViewById code when the data binding issue is resolved
             AppCompatTextView editedNameTextView = findViewById(R.id.git_user_one_edit_text);
             editedNameTextView.setText(event.getTextMessage());
         }
-        else if (event.getCallbackId() == mGitUserPair_ViewModel.getGitUserTwo().hashCode()) {
+        else if (event.getCallbackId() == mGitHubUserPair_ViewModel.getGitHubUserTwo().hashCode()) {
             LogHelper.v(TAG, "set UserTwo name: name=" + event.getTextMessage());
-            mGitUserPair_ViewModel.getGitUserTwo().setUserName(event.getTextMessage());
+            mGitHubUserPair_ViewModel.getGitHubUserTwo().setUserName(event.getTextMessage());
             // FIXME: this should notify using the data binding..
-//            mGitUserPair_ViewModel.getGitHubUserOne().notifyPropertyChanged(R.id.git_user_two_edit_text);
+//            mGitHubUserPair_ViewModel.getGitHubUserOne().notifyPropertyChanged(R.id.git_user_two_edit_text);
             // TODO: remove the findViewById code when the data binding issue is resolved
             AppCompatTextView editedNameTextView = findViewById(R.id.git_user_two_edit_text);
             editedNameTextView.setText(event.getTextMessage());
@@ -106,18 +107,18 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    public void searchGitUsers(GitHubUser_Model userOne, GitHubUser_Model userTwo) {
+    public void searchGitHubUsers(GitHubUser_Model userOne, GitHubUser_Model userTwo) {
         if (userOne != null && userOne.getUserName() != null && userOne.getUserName().length() > 0
                 && userTwo != null && userTwo.getUserName() != null && userTwo.getUserName().length() > 0) {
-            LogHelper.v(TAG, "searchGitUsers: userOne=" + userOne.getUserName() + ", userTwo=" + userTwo.getUserName());
+            LogHelper.v(TAG, "searchGitHubUsers: userOne=" + userOne.getUserName() + ", userTwo=" + userTwo.getUserName());
             getProgressCircle().setVisibility(View.VISIBLE);
             if (getProgressCircle() != null) {
                 getProgressCircle().setVisibility(View.VISIBLE);
             }
-            mGitUserPair_ViewModel.searchForUsers(userOne, userTwo);
+            mGitHubUserPair_ViewModel.searchForUsers(userOne, userTwo);
         }
         else {
-            LogHelper.v(TAG, "searchGitUsers: INVALID user name(s)");
+            LogHelper.v(TAG, "searchGitHubUsers: INVALID user name(s)");
             String invalidUserName = getString(R.string.empty_user_name);
             CustomToast.post(invalidUserName);
         }
@@ -125,36 +126,48 @@ public class MainActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(GitHubUsersSearchResults.GitHubUsersSearchResultsEvent event) {
-        LogHelper.v(TAG, "onMessageEvent: event=" + event);
+        LogHelper.v(TAG, "SEARCH RESULTS! onMessageEvent: event=" + event);
         if (getProgressCircle() != null) {
             getProgressCircle().setVisibility(View.GONE);
         }
         if (event.searchOneSuccess() && event.searchTwoSuccess()) {
+            LogHelper.v(TAG, "successful search");
             goToBrowseUsersRepositorysActivity(
                     event.getUserOne(),
                     event.getUserTwo());
         }
         else {
-            if (! event.searchOneSuccess()) {
-                String invalidUserName = getString(R.string.invalid_user_name_one);
-                CustomToast.post(invalidUserName);
+            LogHelper.v(TAG, "unsuccessful search");
+            if (NetworkHelper.isNotOnline()) {
+                LogHelper.v(TAG, "offline");
+                String not_online = getString(R.string.not_online);
+                CustomToast.post(not_online);
             }
-            if (! event.searchTwoSuccess()) {
-                String invalidUserName = getString(R.string.invalid_user_name_two);
-                CustomToast.post(invalidUserName);
+            else {
+                LogHelper.v(TAG, "online");
+                if (!event.searchOneSuccess()) {
+                    LogHelper.v(TAG, "bad user one");
+                    String invalidUserName = getString(R.string.invalid_user_name_one);
+                    CustomToast.post(invalidUserName);
+                }
+                if (!event.searchTwoSuccess()) {
+                    LogHelper.v(TAG, "bad user two");
+                    String invalidUserName = getString(R.string.invalid_user_name_two);
+                    CustomToast.post(invalidUserName);
+                }
             }
         }
     }
 
     private void tooltip() {
         LogHelper.v(TAG, "tooltip");
-        if (baseActivity() != null && ! sSeenTooltip_GitUsers) {
+        if (baseActivity() != null && ! sSeenTooltip_GitHubUsers) {
             baseActivity().getHandler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     if (baseActivity() != null) {
                         LogHelper.v(TAG, "tooltip: make");
-                        sSeenTooltip_GitUsers = true;
+                        sSeenTooltip_GitHubUsers = true;
                         String tip = getResources().getString(R.string.tooltip_enter_github_users);
                         AppCompatImageButton anchor = findViewById(R.id.start_button);
                         Tooltip.TooltipView tooltipView = Tooltip.make(MainActivity.this,
@@ -184,7 +197,7 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         LogHelper.v(TAG, "onDestroy");
         mBinding = null;
-        mGitUserPair_ViewModel = null;
+        mGitHubUserPair_ViewModel = null;
         super.onDestroy();
     }
 }

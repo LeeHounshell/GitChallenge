@@ -34,9 +34,9 @@ public class GitHubUser_Model extends BaseObservable implements Parcelable {
         this.mUserRepositoryList = new ArrayList<>();
     }
 
-    public void enterGitUser(View view) {
+    public void enterGitHubUser(View view) {
         mUserName = ((AppCompatTextView) view).getText().toString().trim();
-        LogHelper.v(TAG, "enterGitUser: mUserName=" + mUserName);
+        LogHelper.v(TAG, "enterGitHubUser: mUserName=" + mUserName);
         GitHubUserNameRequestChangeEvent event = new GitHubUserNameRequestChangeEvent(mUserName, hashCode());
         event.post();
     }

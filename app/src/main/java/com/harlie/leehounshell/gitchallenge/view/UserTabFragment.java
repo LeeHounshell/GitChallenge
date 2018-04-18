@@ -25,7 +25,7 @@ public class UserTabFragment extends Fragment {
     private final static String TAG = "LEE: <" + UserTabFragment.class.getSimpleName() + ">";
 
     protected View mView;
-    protected GitHubUser_Model mGitUser;
+    protected GitHubUser_Model mGitHubUser;
     protected AppCompatTextView mUserNameLabel;
     protected AppCompatTextView mUserName;
     protected AppCompatTextView mProfileUrlLabel;
@@ -127,12 +127,12 @@ public class UserTabFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public GitHubUser_Model getGitUser() {
-        return mGitUser;
+    public GitHubUser_Model getGitHubUser() {
+        return mGitHubUser;
     }
 
-    public void setGitUser(GitHubUser_Model gitUser) {
-        this.mGitUser = gitUser;
+    public void setGitHubUser(GitHubUser_Model gitHubUser) {
+        this.mGitHubUser = gitHubUser;
     }
 
     public int getUserNumber() {
@@ -148,7 +148,7 @@ public class UserTabFragment extends Fragment {
     public void onDestroy() {
         LogHelper.v(TAG, "onDestroy");
         mView = null;
-        mGitUser = null;
+        mGitHubUser = null;
         mUserNameLabel = null;
         mUserName = null;
         mProfileUrlLabel = null;

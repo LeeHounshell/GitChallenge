@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{gitHubUserOne.getUserName()}"
-                    android:onClick="@{(view) -> gitHubUserOne.enterGitUser(view)}"
+                    android:onClick="@{(view) -> gitHubUserOne.enterGitHubUser(view)}"
                     android:hint="@string/enter_github_user_name_one"/>
 
                 <android.support.v7.widget.AppCompatTextView
@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{gitHubUserTwo.getUserName()}"
-                    android:onClick="@{(view) -> gitHubUserTwo.enterGitUser(view)}"
+                    android:onClick="@{(view) -> gitHubUserTwo.enterGitHubUser(view)}"
                     android:hint="@string/enter_github_user_name_two"/>
 
                 <android.support.v7.widget.AppCompatImageButton
@@ -71,7 +71,7 @@
                     style="@style/TargetButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> mainActivity.searchGitUsers(gitHubUserOne, gitHubUserTwo)}"
+                    android:onClick="@{() -> mainActivity.searchGitHubUsers(gitHubUserOne, gitHubUserTwo)}"
                     android:minHeight="0dp"
                     android:minWidth="0dp"
                     android:layout_gravity="center_horizontal"

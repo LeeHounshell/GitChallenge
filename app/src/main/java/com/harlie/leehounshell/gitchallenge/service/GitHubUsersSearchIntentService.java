@@ -53,7 +53,7 @@ public class GitHubUsersSearchIntentService extends IntentService {
     }
 
     /**
-     * Starts this service to perform action FindGitUser with the given parameters. If
+     * Starts this service to perform action FindGitHubUser with the given parameters. If
      * the service is already performing a task this action will be queued.
      *
      * @see IntentService
@@ -74,10 +74,10 @@ public class GitHubUsersSearchIntentService extends IntentService {
         if (intent != null) {
             final String action = intent.getAction();
             if (ACTION_FIND_GITHUB_USERS.equals(action)) {
-                GitHubUser_Model gitUserOne = intent.getParcelableExtra(GITHUB_USER_ONE);
-                GitHubUser_Model gitUserTwo = intent.getParcelableExtra(GITHUB_USER_TWO);
+                GitHubUser_Model gitHubUserOne = intent.getParcelableExtra(GITHUB_USER_ONE);
+                GitHubUser_Model gitHubUserTwo = intent.getParcelableExtra(GITHUB_USER_TWO);
                 final ResultReceiver searchResultReceiver = intent.getParcelableExtra(RECEIVER);
-                handleActionFindGitHubUsers(gitUserOne, gitUserTwo, searchResultReceiver);
+                handleActionFindGitHubUsers(gitHubUserOne, gitHubUserTwo, searchResultReceiver);
             }
         }
     }

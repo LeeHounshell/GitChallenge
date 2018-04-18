@@ -19,7 +19,7 @@ import org.greenrobot.eventbus.ThreadMode;
 public class UserOneTabFragment extends UserTabFragment {
     private final static String TAG = "LEE: <" + UserOneTabFragment.class.getSimpleName() + ">";
 
-    private BrowseUsersRepositorysActivity.GitUserOneResultsEvent mLastEvent;
+    private BrowseUsersRepositorysActivity.GitHubUserOneResultsEvent mLastEvent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class UserOneTabFragment extends UserTabFragment {
 
     private void initializeRecyclerView() {
         LogHelper.v(TAG, "initializeRecyclerView");
-        if (mRecyclerView == null && mGitUser != null) {
+        if (mRecyclerView == null && mGitHubUser != null) {
             mRecyclerView = mView.findViewById(R.id.tab1_repo_recycler_view);
             if (mRecyclerView != null) {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -51,7 +51,7 @@ public class UserOneTabFragment extends UserTabFragment {
                 mRecyclerView.setLayoutManager(layoutManager);
                 mRecyclerView.setHasFixedSize(false);
                 mRecyclerView.setNestedScrollingEnabled(false);
-                RepositoryListAdapter repoListAdapter = new RepositoryListAdapter(this, mGitUser.getUserRepositoryList());
+                RepositoryListAdapter repoListAdapter = new RepositoryListAdapter(this, mGitHubUser.getUserRepositoryList());
                 mRecyclerView.setAdapter(repoListAdapter);
             } else {
                 LogHelper.e(TAG, "*** null RecyclerView ***");
@@ -60,7 +60,7 @@ public class UserOneTabFragment extends UserTabFragment {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(BrowseUsersRepositorysActivity.GitUserOneResultsEvent event) {
+    public void onMessageEvent(BrowseUsersRepositorysActivity.GitHubUserOneResultsEvent event) {
         LogHelper.v(TAG, "===> onMessageEvent: userNumber=" + mUserNumber + ", event=" + event);
         mLastEvent = event;
         handleLastEvent();
@@ -69,19 +69,19 @@ public class UserOneTabFragment extends UserTabFragment {
     public void handleLastEvent() {
         if (mLastEvent != null) {
             LogHelper.v(TAG, "handleLastEvent: mLastEvent=" + mLastEvent);
-            setGitUser(mLastEvent.getUserModel());
+            setGitHubUser(mLastEvent.getUserModel());
             findTheViews();
             if (mUserName != null && mUserNameLabel != null) {
                 mUserNameLabel.setText(getString(R.string.user_name));
-                mUserName.setText(getGitUser().getUserName());
+                mUserName.setText(getGitHubUser().getUserName());
             }
             if (mProfileUrl != null && mProfileUrlLabel != null) {
                 mProfileUrlLabel.setText(getString(R.string.profile));
-                mProfileUrl.setText(getGitUser().getUserProfileUrl());
+                mProfileUrl.setText(getGitHubUser().getUserProfileUrl());
             }
             if (mAvatar != null) {
                 setAvatarClickListener();
-                loadAvatarImage(getGitUser().getUserAvatarUrl());
+                loadAvatarImage(getGitHubUser().getUserAvatarUrl());
             }
         }
         else {
